@@ -1,18 +1,18 @@
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import type { Word } from "@/lib/words"
 
 export function WordChip({ word }: Props) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
+    <Popover>
+      <PopoverTrigger asChild>
         <button className="font-mono text-sm px-2 py-1 rounded hover:bg-muted active:bg-muted/80">
           {word.word}
         </button>
-      </TooltipTrigger>
-      <TooltipContent className="max-w-xs">
+      </PopoverTrigger>
+      <PopoverContent className="max-w-xs text-sm p-3">
         <p>{word.definition}</p>
-      </TooltipContent>
-    </Tooltip>
+      </PopoverContent>
+    </Popover>
   )
 }
 

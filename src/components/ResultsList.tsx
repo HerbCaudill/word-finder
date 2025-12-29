@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import type { Word } from "@/lib/words"
 import { WordChip } from "./WordChip"
-import { TooltipProvider } from "@/components/ui/tooltip"
 
 const PAGE_SIZE = 100
 
@@ -34,13 +33,11 @@ export function ResultsList({ words }: Props) {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <TooltipProvider delayDuration={0}>
-        <div className="p-3 flex flex-wrap gap-1">
-          {visibleWords.map((word, index) => (
-            <WordChip key={`${word.word}-${index}`} word={word} />
-          ))}
-        </div>
-      </TooltipProvider>
+      <div className="p-3 flex flex-wrap gap-1">
+        {visibleWords.map((word, index) => (
+          <WordChip key={`${word.word}-${index}`} word={word} />
+        ))}
+      </div>
       {visibleCount < words.length && (
         <div ref={loaderRef} className="px-4 py-3 text-center text-muted-foreground text-sm">
           Loading more...
