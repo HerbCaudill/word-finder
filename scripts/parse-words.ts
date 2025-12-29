@@ -1,5 +1,4 @@
 import { readFileSync, writeFileSync } from "fs"
-import { gzipSync } from "zlib"
 import { parseDefinition } from "../src/lib/parseDefinition"
 import type { Word } from "../src/lib/words"
 
@@ -22,9 +21,7 @@ const words: Word[] = lines
   .filter((w): w is Word => w !== null)
 
 const json = JSON.stringify(words)
-const gzipped = gzipSync(json)
 
-writeFileSync("public/words.json.gz", gzipped)
+writeFileSync("public/words.json", json)
 console.log(`Parsed ${words.length} words`)
 console.log(`JSON size: ${(json.length / 1024 / 1024).toFixed(2)} MB`)
-console.log(`Gzipped size: ${(gzipped.length / 1024 / 1024).toFixed(2)} MB`)
