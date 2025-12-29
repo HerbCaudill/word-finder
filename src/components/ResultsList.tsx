@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import type { Word } from "@/lib/words"
 import { WordChip } from "./WordChip"
 
-const PAGE_SIZE = 100
+const PAGE_SIZE = 500
 
 export function ResultsList({ words }: Props) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
