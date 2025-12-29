@@ -19,6 +19,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
   }
 
   const removeCriterion = (index: number) => {
+    if (criteria.length <= 1) return // Safety check
     onChange(criteria.filter((_, i) => i !== index))
   }
 
