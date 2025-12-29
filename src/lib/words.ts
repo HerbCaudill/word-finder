@@ -3,14 +3,20 @@ import { applyFilter, FilterMode } from './filters'
 export type Word = {
   word: string
   definitions: Definition[]
-  crossRef?: string // e.g. "aah=v" means this is a form of AAH (verb)
+  crossRef?: CrossRef // reference to another word this is a form of
+}
+
+export type CrossRef = {
+  word: string // the base word e.g. "AAH"
+  partOfSpeech: string // e.g. "v"
 }
 
 export type Definition = {
   text: string
   partOfSpeech: string
-  forms?: string // e.g. "-S" or "-ED, -ING, -S"
+  forms?: string[] // expanded forms e.g. ["CATS"] or ["JUMPED", "JUMPING", "JUMPS"]
   alsoSpelled?: string[] // alternative spellings
+  origin?: string // language origin e.g. "Hawaiian", "French"
 }
 
 export type Criterion = {

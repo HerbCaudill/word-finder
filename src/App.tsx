@@ -4,9 +4,9 @@ import { ResultsList } from "@/components/ResultsList"
 import { Button } from "@/components/ui/button"
 import { RotateCcw } from "lucide-react"
 import type { Criterion, Word } from "@/lib/words"
-import { filterWords, sortWords } from "@/lib/words"
+import { filterWords } from "@/lib/words"
 import { FilterMode } from "@/lib/filters"
-import wordsData from "@/data/words.json"
+import { loadWords } from "@/lib/loadWords"
 
 const DEBOUNCE_MS = 150
 const STORAGE_KEY = "word-finder-criteria"
@@ -34,7 +34,7 @@ export function App() {
   const [debouncedCriteria, setDebouncedCriteria] = useState(criteria)
 
   useEffect(() => {
-    setWords(sortWords(wordsData as Word[]))
+    loadWords().then(setWords)
   }, [])
 
   // Persist criteria to localStorage

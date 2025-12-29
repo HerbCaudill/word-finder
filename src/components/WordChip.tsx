@@ -11,7 +11,9 @@ export function WordChip({ word }: Props) {
       </PopoverTrigger>
       <PopoverContent className="max-w-xs text-sm p-3">
         {word.crossRef ? (
-          <p className="text-muted-foreground italic">See {word.crossRef.split("=")[0].toUpperCase()}</p>
+          <p className="text-muted-foreground italic">
+            See {word.crossRef.word} ({word.crossRef.partOfSpeech})
+          </p>
         ) : word.definitions.length > 0 ? (
           <ul className="space-y-2">
             {word.definitions.map((def, i) => (
@@ -20,8 +22,16 @@ export function WordChip({ word }: Props) {
                   {def.partOfSpeech && (
                     <span className="text-muted-foreground italic mr-1">({def.partOfSpeech})</span>
                   )}
+                  {def.origin && (
+                    <span className="text-muted-foreground mr-1">[{def.origin}]</span>
+                  )}
                   {def.text}
                 </div>
+                {def.forms && def.forms.length > 0 && (
+                  <div className="text-muted-foreground text-xs mt-0.5">
+                    Forms: {def.forms.join(", ")}
+                  </div>
+                )}
                 {def.alsoSpelled && def.alsoSpelled.length > 0 && (
                   <div className="text-muted-foreground text-xs mt-0.5">
                     Also: {def.alsoSpelled.join(", ")}

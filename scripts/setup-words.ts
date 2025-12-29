@@ -4,11 +4,11 @@ import { execSync } from "child_process"
 const SOURCE_URL =
   "https://raw.githubusercontent.com/scrabblewords/scrabblewords/refs/heads/main/words/British/CSW21.txt"
 const SOURCE_PATH = "scripts/CSW21.txt"
-const OUTPUT_PATH = "src/data/words.json"
+const OUTPUT_PATH = "public/words.json.gz"
 
-// Skip if words.json already exists
+// Skip if words.json.gz already exists
 if (existsSync(OUTPUT_PATH)) {
-  console.log("words.json already exists, skipping setup")
+  console.log("words.json.gz already exists, skipping setup")
   process.exit(0)
 }
 
@@ -18,6 +18,6 @@ if (!existsSync(SOURCE_PATH)) {
   execSync(`curl -o ${SOURCE_PATH} "${SOURCE_URL}"`, { stdio: "inherit" })
 }
 
-// Generate words.json
-console.log("Generating words.json...")
+// Generate words.json.gz
+console.log("Generating words.json.gz...")
 execSync("pnpm tsx scripts/parse-words.ts", { stdio: "inherit" })
