@@ -2,7 +2,15 @@ import { applyFilter, FilterMode } from './filters'
 
 export type Word = {
   word: string
-  definition: string
+  definitions: Definition[]
+  crossRef?: string // e.g. "aah=v" means this is a form of AAH (verb)
+}
+
+export type Definition = {
+  text: string
+  partOfSpeech: string
+  forms?: string // e.g. "-S" or "-ED, -ING, -S"
+  alsoSpelled?: string[] // alternative spellings
 }
 
 export type Criterion = {

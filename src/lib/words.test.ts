@@ -5,10 +5,10 @@ import { FilterMode } from './filters'
 describe('sortWords', () => {
   it('sorts by length descending, then alphabetically', () => {
     const words = [
-      { word: 'CAT', definition: '' },
-      { word: 'APPLE', definition: '' },
-      { word: 'DOG', definition: '' },
-      { word: 'ZEBRA', definition: '' },
+      { word: 'CAT', definitions: [] },
+      { word: 'APPLE', definitions: [] },
+      { word: 'DOG', definitions: [] },
+      { word: 'ZEBRA', definitions: [] },
     ]
     const sorted = sortWords(words)
     expect(sorted.map(w => w.word)).toEqual(['APPLE', 'ZEBRA', 'CAT', 'DOG'])
@@ -17,9 +17,9 @@ describe('sortWords', () => {
 
 describe('filterWords', () => {
   const words = [
-    { word: 'APPLE', definition: 'a fruit' },
-    { word: 'BANANA', definition: 'yellow fruit' },
-    { word: 'CAT', definition: 'a pet' },
+    { word: 'APPLE', definitions: [{ text: 'a fruit', partOfSpeech: 'n' }] },
+    { word: 'BANANA', definitions: [{ text: 'yellow fruit', partOfSpeech: 'n' }] },
+    { word: 'CAT', definitions: [{ text: 'a pet', partOfSpeech: 'n' }] },
   ]
 
   it('filters with single criterion', () => {
