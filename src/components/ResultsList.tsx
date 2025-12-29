@@ -35,7 +35,7 @@ export function ResultsList({ words }: Props) {
   const visibleWords = words.slice(0, visibleCount)
 
   return (
-    <div ref={containerRef} className="flex-1 overflow-y-auto">
+    <div ref={containerRef} className="h-full overflow-y-auto">
       <div className="p-3 flex flex-wrap gap-1">
         {visibleWords.map((word, index) => (
           <WordChip key={`${word.word}-${index}`} word={word} />

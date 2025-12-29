@@ -58,7 +58,7 @@ export function App() {
 
   return (
     <div className="h-dvh flex flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-10 bg-green-600 text-white pt-[env(safe-area-inset-top)]">
+      <header className="shrink-0 bg-green-600 text-white pt-[env(safe-area-inset-top)]">
         <div className="max-w-3xl mx-auto">
           <CriteriaList criteria={criteria} onChange={setCriteria} />
           <div className="px-4 py-2 text-sm text-white/70 font-semibold flex items-center justify-between">
@@ -77,7 +77,7 @@ export function App() {
           </div>
         </div>
       </header>
-      <div className="max-w-3xl mx-auto w-full flex-1 overflow-hidden">
+      <div className="max-w-3xl mx-auto w-full flex-1 min-h-0">
         <ResultsList words={filteredWords} />
       </div>
     </div>
