@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(curl:*)",
-      "Bash(timeout 5 pnpm dev:*)"
+      "Bash(timeout 5 pnpm dev:*)",
+      "Bash(xargs:*)"
     ]
   }
 }
