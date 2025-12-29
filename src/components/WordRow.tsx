@@ -10,7 +10,7 @@ export function WordRow({ word }: Props) {
       <CollapsibleTrigger className="w-full text-left px-4 pt-1 hover:bg-muted/50 active:bg-muted">
         <span className="font-mono font-medium">{word.word}</span>
       </CollapsibleTrigger>
-      <CollapsibleContent className="px-4 pb-2 -mt-1">
+      <CollapsibleContent className="px-4 pb-2 -mt-1 cursor-pointer" onClick={() => setOpen(false)}>
         <p className="text-sm text-muted-foreground">{word.definition}</p>
       </CollapsibleContent>
     </Collapsible>
