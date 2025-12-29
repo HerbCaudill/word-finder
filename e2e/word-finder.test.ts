@@ -102,8 +102,8 @@ test.describe("Word Finder", () => {
     await page.getByPlaceholder("Enter value...").first().fill("TEST")
     await expect(page.getByPlaceholder("Enter value...")).toHaveCount(2)
 
-    // Get all X buttons (remove buttons)
-    const removeButtons = page.locator('button:has(svg.lucide-x)')
+    // Get all trash buttons (remove buttons)
+    const removeButtons = page.locator('button:has(svg.lucide-trash-2)')
 
     // Click the first remove button
     await removeButtons.first().click()

@@ -1,7 +1,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { X } from "lucide-react"
+import { Trash2 } from "lucide-react"
 import { FilterMode, FILTER_LABELS } from "@/lib/filters"
 import type { Criterion } from "@/lib/words"
 
@@ -31,7 +31,7 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove }: Props
       />
       {canRemove ? (
         <Button variant="ghost" size="icon" onClick={onRemove} className="shrink-0">
-          <X className="h-4 w-4" />
+          <Trash2 className="h-4 w-4" />
         </Button>
       ) : (
         <div className="w-9 shrink-0" />
