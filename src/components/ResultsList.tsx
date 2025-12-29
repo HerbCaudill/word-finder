@@ -6,6 +6,7 @@ const PAGE_SIZE = 100
 
 export function ResultsList({ words }: Props) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const containerRef = useRef<HTMLDivElement>(null)
   const loaderRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -13,18 +14,20 @@ export function ResultsList({ words }: Props) {
   }, [words])
 
   useEffect(() => {
+    const container = containerRef.current
+    const loader = loaderRef.current
+    if (!container || !loader) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && visibleCount < words.length) {
           setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, words.length))
         }
       },
-      { threshold: 0.1 }
+      { root: container, threshold: 0.1 }
     )
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current)
-    }
+    observer.observe(loader)
 
     return () => observer.disconnect()
   }, [visibleCount, words.length])
@@ -32,7 +35,7 @@ export function ResultsList({ words }: Props) {
   const visibleWords = words.slice(0, visibleCount)
 
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div ref={containerRef} className="flex-1 overflow-y-auto">
       <div className="p-3 flex flex-wrap gap-1">
         {visibleWords.map((word, index) => (
           <WordChip key={`${word.word}-${index}`} word={word} />
