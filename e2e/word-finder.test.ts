@@ -166,4 +166,25 @@ test.describe("Word Finder", () => {
     // 5-letter words matching ^Z.*A$ should appear
     await expect(page.getByRole("button", { name: "ZEBRA", exact: true })).toBeVisible()
   })
+
+  test("cannot delete the last criterion", async ({ page }) => {
+    // Initially there's one criterion and no trash button should be visible
+    const trashButtons = page.locator('button:has(svg.lucide-trash-2)')
+    await expect(trashButtons).toHaveCount(0)
+
+    // Type to trigger auto-add of second criterion
+    await page.getByPlaceholder("Enter value...").first().fill("TEST")
+    await expect(page.getByPlaceholder("Enter value...")).toHaveCount(2)
+
+    // Now there should be one trash button (for the first criterion only)
+    await expect(trashButtons).toHaveCount(1)
+
+    // The last criterion should not have a trash button
+    // Delete the first criterion
+    await trashButtons.first().click()
+    await expect(page.getByPlaceholder("Enter value...")).toHaveCount(1)
+
+    // Now there should be no trash buttons again
+    await expect(trashButtons).toHaveCount(0)
+  })
 })

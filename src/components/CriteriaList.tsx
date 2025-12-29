@@ -1,6 +1,6 @@
-import { FilterMode } from "@/lib/filters"
-import type { Criterion } from "@/lib/words"
-import { CriterionRow } from "./CriterionRow"
+import { FilterMode } from '@/lib/filters'
+import type { Criterion } from '@/lib/words'
+import { CriterionRow } from './CriterionRow'
 
 export function CriteriaList({ criteria, onChange }: Props) {
   const updateCriterion = (index: number, criterion: Criterion) => {
@@ -12,7 +12,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
     const hadNoValue = !criteria[index].value
     const hasValue = !!criterion.value
     if (isLast && hadNoValue && hasValue) {
-      next.push({ mode: FilterMode.Contains, value: "" })
+      next.push({ mode: FilterMode.Contains, value: '' })
     }
 
     onChange(next)
@@ -29,9 +29,9 @@ export function CriteriaList({ criteria, onChange }: Props) {
         <CriterionRow
           key={index}
           criterion={criterion}
-          onChange={(c) => updateCriterion(index, c)}
+          onChange={c => updateCriterion(index, c)}
           onRemove={() => removeCriterion(index)}
-          canRemove={criteria.length > 1}
+          canRemove={criteria.length > index + 1}
         />
       ))}
     </div>
