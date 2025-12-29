@@ -11,6 +11,7 @@ export function ResultsList({ words }: Props) {
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE)
+    containerRef.current?.scrollTo(0, 0)
   }, [words])
 
   useEffect(() => {
