@@ -1,17 +1,20 @@
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
 import { FilterMode } from "@/lib/filters"
 import type { Criterion } from "@/lib/words"
 import { CriterionRow } from "./CriterionRow"
 
 export function CriteriaList({ criteria, onChange }: Props) {
-  const addCriterion = () => {
-    onChange([...criteria, { mode: FilterMode.Contains, value: "" }])
-  }
-
   const updateCriterion = (index: number, criterion: Criterion) => {
     const next = [...criteria]
     next[index] = criterion
+
+    // Auto-add new criterion when the last one gets a value
+    const isLast = index === criteria.length - 1
+    const hadNoValue = !criteria[index].value
+    const hasValue = !!criterion.value
+    if (isLast && hadNoValue && hasValue) {
+      next.push({ mode: FilterMode.Contains, value: "" })
+    }
+
     onChange(next)
   }
 
@@ -29,10 +32,6 @@ export function CriteriaList({ criteria, onChange }: Props) {
           onRemove={() => removeCriterion(index)}
         />
       ))}
-      <Button variant="outline" onClick={addCriterion} className="w-full">
-        <Plus className="h-4 w-4 mr-2" />
-        Add criterion
-      </Button>
     </div>
   )
 }
