@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest"
 import { parseDefinition } from "./parseDefinition"
 
 describe("parseDefinition", () => {
-  it("parses a simple noun with origin and plural", () => {
+  it("parses a simple noun with note and plural", () => {
     // AA (Hawaiian) a volcanic rock consisting of angular blocks of lava with a very rough surface [n -S]
     const result = parseDefinition("(Hawaiian) a volcanic rock consisting of angular blocks of lava with a very rough surface [n -S]", "AA")
     expect(result.definitions).toHaveLength(1)
@@ -10,7 +10,7 @@ describe("parseDefinition", () => {
       text: "a volcanic rock consisting of angular blocks of lava with a very rough surface",
       partOfSpeech: "n",
       forms: ["AAS"],
-      origin: "Hawaiian",
+      note: "Hawaiian",
     })
   })
 
@@ -45,7 +45,7 @@ describe("parseDefinition", () => {
       partOfSpeech: "n",
       forms: ["ABACAS"],
       alsoSpelled: ["ABAKA"],
-      origin: "Tagalog",
+      note: "Tagalog",
     })
   })
 
@@ -68,7 +68,7 @@ describe("parseDefinition", () => {
       text: "a hyena-like African mammal, aka earthwolf",
       partOfSpeech: "n",
       forms: ["AARDWOLVES"],
-      origin: "South African",
+      note: "South African",
     })
   })
 
@@ -111,7 +111,7 @@ describe("parseDefinition", () => {
       text: "a counting frame using beads",
       partOfSpeech: "n",
       forms: ["ABACUSES or ABACI"],
-      origin: "Latin",
+      note: "Latin",
     })
   })
 

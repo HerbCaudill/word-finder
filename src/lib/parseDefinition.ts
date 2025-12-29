@@ -44,12 +44,12 @@ export function parseDefinition(raw: string, baseWord: string): ParseResult {
     // Remove the [brackets] part and trim
     let text = part.replace(/\s*\[[^\]]+\]$/, "").trim()
 
-    // Extract origin from parentheses at the start: (Hawaiian) a volcanic rock
-    let origin: string | undefined
-    const originMatch = text.match(/^\(([^)]+)\)\s*/)
-    if (originMatch) {
-      origin = originMatch[1]
-      text = text.slice(originMatch[0].length)
+    // Extract note from parentheses at the start: (Hawaiian) a volcanic rock
+    let note: string | undefined
+    const noteMatch = text.match(/^\(([^)]+)\)\s*/)
+    if (noteMatch) {
+      note = noteMatch[1]
+      text = text.slice(noteMatch[0].length)
     }
 
     // Extract alternative spellings: ", also WORD1, WORD2"
@@ -67,7 +67,7 @@ export function parseDefinition(raw: string, baseWord: string): ParseResult {
       const def: Definition = { text, partOfSpeech }
       if (forms && forms.length > 0) def.forms = forms
       if (alsoSpelled && alsoSpelled.length > 0) def.alsoSpelled = alsoSpelled
-      if (origin) def.origin = origin
+      if (note) def.note = note
       definitions.push(def)
     }
   }

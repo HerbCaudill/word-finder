@@ -16,7 +16,7 @@ export type Definition = {
   partOfSpeech: string
   forms?: string[] // expanded forms e.g. ["CATS"] or ["JUMPED", "JUMPING", "JUMPS"]
   alsoSpelled?: string[] // alternative spellings
-  origin?: string // language origin e.g. "Hawaiian", "French"
+  note?: string // contextual note e.g. "Hawaiian", "obsolete", "colloquial"
 }
 
 export type Criterion = {

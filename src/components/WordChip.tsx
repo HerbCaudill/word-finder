@@ -22,8 +22,8 @@ export function WordChip({ word }: Props) {
                   {def.partOfSpeech && (
                     <span className="text-muted-foreground italic mr-1">({def.partOfSpeech})</span>
                   )}
-                  {def.origin && (
-                    <span className="text-muted-foreground mr-1">[{def.origin}]</span>
+                  {def.note && (
+                    <span className="text-muted-foreground mr-1">[{def.note}]</span>
                   )}
                   {def.text}
                 </div>
