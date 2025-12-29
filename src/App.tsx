@@ -6,19 +6,30 @@ import { filterWords, sortWords } from "@/lib/words"
 import { FilterMode } from "@/lib/filters"
 import wordsData from "@/data/words.json"
 
+const DEBOUNCE_MS = 150
+
 export function App() {
   const [words, setWords] = useState<Word[]>([])
   const [criteria, setCriteria] = useState<Criterion[]>([
     { mode: FilterMode.Contains, value: "" },
   ])
+  const [debouncedCriteria, setDebouncedCriteria] = useState(criteria)
 
   useEffect(() => {
     setWords(sortWords(wordsData as Word[]))
   }, [])
 
+  // Debounce criteria changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedCriteria(criteria)
+    }, DEBOUNCE_MS)
+    return () => clearTimeout(timer)
+  }, [criteria])
+
   const filteredWords = useMemo(() => {
-    return filterWords(words, criteria)
-  }, [words, criteria])
+    return filterWords(words, debouncedCriteria)
+  }, [words, debouncedCriteria])
 
   return (
     <div className="h-dvh flex flex-col bg-background text-foreground">
