@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import type { Word } from "@/lib/words"
+import type { Word } from "@herbcaudill/scrabble-words"
 import { WordChip } from "./WordChip"
 
 const PAGE_SIZE = 500

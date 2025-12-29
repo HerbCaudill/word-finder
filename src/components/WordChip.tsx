@@ -1,5 +1,5 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import type { Word } from "@/lib/words"
+import type { Word } from "@herbcaudill/scrabble-words"
 
 export function WordChip({ word }: Props) {
   return (

@@ -3,7 +3,8 @@ import { CriteriaList } from "@/components/CriteriaList"
 import { ResultsList } from "@/components/ResultsList"
 import { Button } from "@/components/ui/button"
 import { RotateCcw } from "lucide-react"
-import type { Criterion, Word } from "@/lib/words"
+import type { Word } from "@herbcaudill/scrabble-words"
+import type { Criterion } from "@/lib/words"
 import { filterWords } from "@/lib/words"
 import { FilterMode } from "@/lib/filters"
 import { loadWords } from "@/lib/loadWords"
@@ -29,13 +30,9 @@ function loadCriteria(): Criterion[] {
 }
 
 export function App() {
-  const [words, setWords] = useState<Word[]>([])
+  const [words] = useState<Word[]>(loadWords)
   const [criteria, setCriteria] = useState<Criterion[]>(loadCriteria)
   const [debouncedCriteria, setDebouncedCriteria] = useState(criteria)
-
-  useEffect(() => {
-    loadWords().then(setWords)
-  }, [])
 
   // Persist criteria to localStorage
   useEffect(() => {

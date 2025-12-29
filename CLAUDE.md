@@ -8,6 +8,7 @@ A mobile-first PWA for finding words from the Collins Scrabble Dictionary (CSW21
 - Tailwind v4 + shadcn/ui
 - IBM Plex fonts
 - vite-plugin-pwa for offline support
+- [@herbcaudill/scrabble-words](https://www.npmjs.com/package/@herbcaudill/scrabble-words) for word data
 
 ## Commands
 
@@ -32,16 +33,9 @@ src/
   lib/
     filters.ts           # Filter functions for each search mode
     filters.test.ts      # Filter tests
-    words.ts             # Word types and filtering/sorting logic
+    words.ts             # Filtering/sorting logic and Criterion type
     words.test.ts        # Word tests
-    loadWords.ts         # Fetches and parses word data
-    parseDefinition.ts   # Parses raw definitions into structured data
-    parseDefinition.test.ts
-public/
-  words.json             # Parsed word list (279k words, gitignored)
-scripts/
-  setup-words.ts         # Downloads CSW21.txt and generates words.json if needed
-  parse-words.ts         # Converts CSW21.txt to public/words.json
+    loadWords.ts         # Imports word data from @herbcaudill/scrabble-words
 ```
 
 ## Search Modes
@@ -57,15 +51,3 @@ scripts/
 - Has length
 
 Multiple criteria combine with AND logic.
-
-## Word Data
-
-The word list is gitignored and generated automatically during `pnpm build`. To manually regenerate:
-
-```bash
-pnpm run setup   # Downloads CSW21.txt if needed and generates words.json
-```
-
-## Important
-
-Never commit generated files like `public/words.json` to source control. They are gitignored and should be generated at build time via the setup script.

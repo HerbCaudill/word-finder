@@ -1,23 +1,5 @@
+import type { Word } from '@herbcaudill/scrabble-words'
 import { applyFilter, FilterMode } from './filters'
-
-export type Word = {
-  word: string
-  definitions: Definition[]
-  crossRef?: CrossRef // reference to another word this is a form of
-}
-
-export type CrossRef = {
-  word: string // the base word e.g. "AAH"
-  partOfSpeech: string // e.g. "v"
-}
-
-export type Definition = {
-  text: string
-  partOfSpeech: string
-  forms?: string[] // expanded forms e.g. ["CATS"] or ["JUMPED", "JUMPING", "JUMPS"]
-  alsoSpelled?: string[] // alternative spellings
-  note?: string // contextual note e.g. "Hawaiian", "obsolete", "colloquial"
-}
 
 export type Criterion = {
   mode: FilterMode
