@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import type { Word } from "@/lib/words"
-import { WordRow } from "./WordRow"
+import { WordChip } from "./WordChip"
+import { TooltipProvider } from "@/components/ui/tooltip"
 
-const PAGE_SIZE = 50
+const PAGE_SIZE = 100
 
 export function ResultsList({ words }: Props) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
@@ -33,11 +34,13 @@ export function ResultsList({ words }: Props) {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="py-2">
-        {visibleWords.map((word, index) => (
-          <WordRow key={`${word.word}-${index}`} word={word} />
-        ))}
-      </div>
+      <TooltipProvider delayDuration={0}>
+        <div className="p-3 flex flex-wrap gap-1">
+          {visibleWords.map((word, index) => (
+            <WordChip key={`${word.word}-${index}`} word={word} />
+          ))}
+        </div>
+      </TooltipProvider>
       {visibleCount < words.length && (
         <div ref={loaderRef} className="px-4 py-3 text-center text-muted-foreground text-sm">
           Loading more...
