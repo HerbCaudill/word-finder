@@ -7,11 +7,10 @@ export function WordRow({ word }: Props) {
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger className="w-full text-left px-4 py-3 min-h-11 hover:bg-muted/50 active:bg-muted border-b border-border">
+      <CollapsibleTrigger className="w-full text-left px-4 py-3 min-h-11 hover:bg-muted/50 active:bg-muted">
         <span className="font-mono font-medium">{word.word}</span>
-        <span className="ml-2 text-muted-foreground text-sm">({word.word.length})</span>
       </CollapsibleTrigger>
-      <CollapsibleContent className="px-4 py-3 bg-muted/30 border-b border-border">
+      <CollapsibleContent className="px-4 py-3 bg-muted/30">
         <p className="text-sm text-muted-foreground">{word.definition}</p>
       </CollapsibleContent>
     </Collapsible>
