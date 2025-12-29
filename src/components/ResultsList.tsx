@@ -24,7 +24,7 @@ export function ResultsList({ words }: Props) {
           setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, words.length))
         }
       },
-      { root: container, threshold: 0.1 }
+      { root: container, rootMargin: "0px 0px 500px 0px", threshold: 0 }
     )
 
     observer.observe(loader)
