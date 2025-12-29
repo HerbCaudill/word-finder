@@ -24,6 +24,9 @@ export function App() {
     <div className="h-dvh flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-10">
         <CriteriaList criteria={criteria} onChange={setCriteria} />
+        <div className="px-4 py-2 text-sm text-muted-foreground bg-background border-b">
+          {filteredWords.length.toLocaleString()} matches
+        </div>
       </header>
       <ResultsList words={filteredWords} />
     </div>

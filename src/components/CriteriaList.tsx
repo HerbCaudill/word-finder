@@ -30,6 +30,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
           criterion={criterion}
           onChange={(c) => updateCriterion(index, c)}
           onRemove={() => removeCriterion(index)}
+          canRemove={criteria.length > 1}
         />
       ))}
     </div>

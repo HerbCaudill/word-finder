@@ -5,14 +5,14 @@ import { X } from "lucide-react"
 import { FilterMode, FILTER_LABELS } from "@/lib/filters"
 import type { Criterion } from "@/lib/words"
 
-export function CriterionRow({ criterion, onChange, onRemove }: Props) {
+export function CriterionRow({ criterion, onChange, onRemove, canRemove }: Props) {
   return (
     <div className="flex items-center gap-2">
       <Select
         value={criterion.mode}
         onValueChange={(mode) => onChange({ ...criterion, mode: mode as FilterMode })}
       >
-        <SelectTrigger className="w-[140px] shrink-0">
+        <SelectTrigger className="w-40 shrink-0">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -29,9 +29,13 @@ export function CriterionRow({ criterion, onChange, onRemove }: Props) {
         placeholder="Enter value..."
         className="flex-1 min-w-0"
       />
-      <Button variant="ghost" size="icon" onClick={onRemove} className="shrink-0">
-        <X className="h-4 w-4" />
-      </Button>
+      {canRemove ? (
+        <Button variant="ghost" size="icon" onClick={onRemove} className="shrink-0">
+          <X className="h-4 w-4" />
+        </Button>
+      ) : (
+        <div className="w-9 shrink-0" />
+      )}
     </div>
   )
 }
@@ -40,4 +44,5 @@ type Props = {
   criterion: Criterion
   onChange: (criterion: Criterion) => void
   onRemove: () => void
+  canRemove: boolean
 }

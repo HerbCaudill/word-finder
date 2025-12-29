@@ -33,9 +33,6 @@ export function ResultsList({ words }: Props) {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="px-4 py-2 text-sm text-muted-foreground sticky top-0 bg-background border-b">
-        {words.length.toLocaleString()} matches
-      </div>
       <div>
         {visibleWords.map((word, index) => (
           <WordRow key={`${word.word}-${index}`} word={word} />
