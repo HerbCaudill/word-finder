@@ -59,23 +59,27 @@ export function App() {
   return (
     <div className="h-dvh flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-10 bg-green-600 text-white">
-        <CriteriaList criteria={criteria} onChange={setCriteria} />
-        <div className="px-4 py-2 text-sm text-white/70 font-semibold flex items-center justify-between">
-          <span>{filteredWords.length.toLocaleString()} matches</span>
-          {hasActiveFilters && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setCriteria(DEFAULT_CRITERIA)}
-              className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
-            >
-              <RotateCcw className="h-3 w-3 mr-1" />
-              Reset
-            </Button>
-          )}
+        <div className="max-w-3xl mx-auto">
+          <CriteriaList criteria={criteria} onChange={setCriteria} />
+          <div className="px-4 py-2 text-sm text-white/70 font-semibold flex items-center justify-between">
+            <span>{filteredWords.length.toLocaleString()} matches</span>
+            {hasActiveFilters && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setCriteria(DEFAULT_CRITERIA)}
+                className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
+              >
+                <RotateCcw className="h-3 w-3 mr-1" />
+                Reset
+              </Button>
+            )}
+          </div>
         </div>
       </header>
-      <ResultsList words={filteredWords} />
+      <div className="max-w-3xl mx-auto w-full flex-1 overflow-hidden">
+        <ResultsList words={filteredWords} />
+      </div>
     </div>
   )
 }

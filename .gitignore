@@ -25,7 +25,7 @@ dist-ssr
 
 # Dictionary files (generated/downloaded)
 scripts/CSW21.txt
-src/data/words.json
+public/words.json
 
 # Playwright
 playwright-report/
