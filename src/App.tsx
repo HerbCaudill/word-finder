@@ -33,9 +33,9 @@ export function App() {
 
   return (
     <div className="h-dvh flex flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-10">
+      <header className="sticky top-0 z-10 bg-green-600 text-white">
         <CriteriaList criteria={criteria} onChange={setCriteria} />
-        <div className="px-4 py-2 text-sm text-muted-foreground bg-background border-b">
+        <div className="px-4 py-2 text-sm text-white/70">
           {filteredWords.length.toLocaleString()} matches
         </div>
       </header>

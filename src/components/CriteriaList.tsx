@@ -24,7 +24,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
   }
 
   return (
-    <div className="p-3 space-y-2 border-b bg-background">
+    <div className="p-3 space-y-2">
       {criteria.map((criterion, index) => (
         <CriterionRow
           key={index}
