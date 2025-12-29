@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react"
 import { CriteriaList } from "@/components/CriteriaList"
 import { ResultsList } from "@/components/ResultsList"
+import { Button } from "@/components/ui/button"
+import { RotateCcw } from "lucide-react"
 import type { Criterion, Word } from "@/lib/words"
 import { filterWords, sortWords } from "@/lib/words"
 import { FilterMode } from "@/lib/filters"
@@ -35,8 +37,17 @@ export function App() {
     <div className="h-dvh flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-10 bg-green-600 text-white">
         <CriteriaList criteria={criteria} onChange={setCriteria} />
-        <div className="px-4 py-2 text-sm text-white/70 font-semibold">
-          {filteredWords.length.toLocaleString()} matches
+        <div className="px-4 py-2 text-sm text-white/70 font-semibold flex items-center justify-between">
+          <span>{filteredWords.length.toLocaleString()} matches</span>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setCriteria([{ mode: FilterMode.Contains, value: "" }])}
+            className="text-white/70 hover:text-white hover:bg-white/10"
+          >
+            <RotateCcw className="h-4 w-4 mr-1" />
+            Reset
+          </Button>
         </div>
       </header>
       <ResultsList words={filteredWords} />
