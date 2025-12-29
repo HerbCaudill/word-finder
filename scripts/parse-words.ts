@@ -1,4 +1,7 @@
-import { readFileSync, writeFileSync } from "fs"
+import { readFileSync, writeFileSync, mkdirSync } from "fs"
+
+// Ensure output directory exists
+mkdirSync("src/data", { recursive: true })
 
 const input = readFileSync("scripts/CSW21.txt", "utf-8")
 const lines = input.split("\n").filter((line) => line && !line.startsWith("#"))
