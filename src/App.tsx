@@ -33,21 +33,25 @@ export function App() {
     return filterWords(words, debouncedCriteria)
   }, [words, debouncedCriteria])
 
+  const hasActiveFilters = criteria.some(c => c.value.trim() !== "")
+
   return (
     <div className="h-dvh flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-10 bg-green-600 text-white">
         <CriteriaList criteria={criteria} onChange={setCriteria} />
         <div className="px-4 py-2 text-sm text-white/70 font-semibold flex items-center justify-between">
           <span>{filteredWords.length.toLocaleString()} matches</span>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setCriteria([{ mode: FilterMode.Contains, value: "" }])}
-            className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30"
-          >
-            <RotateCcw className="h-3 w-3 mr-1" />
-            Reset
-          </Button>
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setCriteria([{ mode: FilterMode.Contains, value: "" }])}
+              className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30"
+            >
+              <RotateCcw className="h-3 w-3 mr-1" />
+              Reset
+            </Button>
+          )}
         </div>
       </header>
       <ResultsList words={filteredWords} />
