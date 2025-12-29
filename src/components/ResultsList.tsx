@@ -33,7 +33,7 @@ export function ResultsList({ words }: Props) {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div>
+      <div className="py-2">
         {visibleWords.map((word, index) => (
           <WordRow key={`${word.word}-${index}`} word={word} />
         ))}
