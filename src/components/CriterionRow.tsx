@@ -12,7 +12,7 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove }: Props
         value={criterion.mode}
         onValueChange={(mode) => onChange({ ...criterion, mode: mode as FilterMode })}
       >
-        <SelectTrigger className="w-40 shrink-0 bg-white text-foreground">
+        <SelectTrigger className="w-40 shrink-0 bg-white text-foreground focus:ring-2 focus:ring-white/50 focus:ring-offset-0">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -27,7 +27,7 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove }: Props
         value={criterion.value}
         onChange={(e) => onChange({ ...criterion, value: e.target.value })}
         placeholder="Enter value..."
-        className="flex-1 min-w-0 bg-white text-foreground"
+        className="flex-1 min-w-0 bg-white text-foreground focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
       />
       {canRemove ? (
         <Button variant="ghost" size="icon" onClick={onRemove} className="shrink-0">
