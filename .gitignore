@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Dictionary source file
+# Dictionary files (generated/downloaded)
 scripts/CSW21.txt
+src/data/words.json

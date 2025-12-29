@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "pnpm run setup && tsc -b && vite build",
+    "setup": "tsx scripts/setup-words.ts",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",

@@ -35,8 +35,9 @@ src/
     words.ts             # Word types and filtering/sorting logic
     words.test.ts        # Word tests
   data/
-    words.json           # Parsed word list (279k words)
+    words.json           # Parsed word list (279k words, gitignored)
 scripts/
+  setup-words.ts         # Downloads CSW21.txt and generates words.json if needed
   parse-words.ts         # Converts CSW21.txt to words.json
 ```
 
@@ -54,9 +55,10 @@ scripts/
 
 Multiple criteria combine with AND logic.
 
-## Regenerating Word Data
+## Word Data
+
+The word list is gitignored and generated automatically during `pnpm build`. To manually regenerate:
 
 ```bash
-curl -o scripts/CSW21.txt "https://raw.githubusercontent.com/scrabblewords/scrabblewords/refs/heads/main/words/British/CSW21.txt"
-pnpm tsx scripts/parse-words.ts
+pnpm run setup   # Downloads CSW21.txt if needed and generates words.json
 ```
