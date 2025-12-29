@@ -27,18 +27,21 @@ src/
     CriteriaList.tsx     # List of criteria with add button
     CriterionRow.tsx     # Single criterion: dropdown + input + remove
     ResultsList.tsx      # Infinite scroll word list
-    WordRow.tsx          # Tappable word with expandable definition
+    WordChip.tsx         # Word chip with popover definition
     ui/                  # shadcn/ui components
   lib/
     filters.ts           # Filter functions for each search mode
     filters.test.ts      # Filter tests
     words.ts             # Word types and filtering/sorting logic
     words.test.ts        # Word tests
-  data/
-    words.json           # Parsed word list (279k words, gitignored)
+    loadWords.ts         # Fetches and parses word data
+    parseDefinition.ts   # Parses raw definitions into structured data
+    parseDefinition.test.ts
+public/
+  words.json             # Parsed word list (279k words, gitignored)
 scripts/
   setup-words.ts         # Downloads CSW21.txt and generates words.json if needed
-  parse-words.ts         # Converts CSW21.txt to words.json
+  parse-words.ts         # Converts CSW21.txt to public/words.json
 ```
 
 ## Search Modes
@@ -62,3 +65,7 @@ The word list is gitignored and generated automatically during `pnpm build`. To 
 ```bash
 pnpm run setup   # Downloads CSW21.txt if needed and generates words.json
 ```
+
+## Important
+
+Never commit generated files like `public/words.json` to source control. They are gitignored and should be generated at build time via the setup script.
