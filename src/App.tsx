@@ -46,7 +46,7 @@ export function App() {
               variant="ghost"
               size="sm"
               onClick={() => setCriteria([{ mode: FilterMode.Contains, value: "" }])}
-              className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30"
+              className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
             >
               <RotateCcw className="h-3 w-3 mr-1" />
               Reset
