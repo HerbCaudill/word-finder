@@ -23,6 +23,8 @@ export function CriteriaList({ criteria, onChange }: Props) {
     onChange(criteria.filter((_, i) => i !== index))
   }
 
+  const firstEmptyIndex = criteria.findIndex(c => c.value === '')
+
   return (
     <div className="p-3 space-y-2">
       {criteria.map((criterion, index) => (
@@ -32,6 +34,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
           onChange={c => updateCriterion(index, c)}
           onRemove={() => removeCriterion(index)}
           canRemove={criteria.length > index + 1}
+          autoFocus={index === firstEmptyIndex}
         />
       ))}
     </div>
