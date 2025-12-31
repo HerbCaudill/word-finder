@@ -1,10 +1,19 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FilterMode } from '@/lib/filters'
 import type { Criterion } from '@/lib/words'
 import { CriterionRow } from './CriterionRow'
 
 export function CriteriaList({ criteria, onChange }: Props) {
-  const initialFocusIndex = useRef(criteria.findIndex(c => c.value === ''))
+  const prevLengthRef = useRef(criteria.length)
+  const [focusIndex, setFocusIndex] = useState(() => criteria.findIndex(c => c.value === ''))
+
+  // Re-focus when criteria length decreases (delete/reset)
+  useEffect(() => {
+    if (criteria.length < prevLengthRef.current) {
+      setFocusIndex(criteria.findIndex(c => c.value === ''))
+    }
+    prevLengthRef.current = criteria.length
+  }, [criteria])
 
   const updateCriterion = (index: number, criterion: Criterion) => {
     const next = [...criteria]
@@ -35,7 +44,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
           onChange={c => updateCriterion(index, c)}
           onRemove={() => removeCriterion(index)}
           canRemove={criteria.length > index + 1}
-          autoFocus={index === initialFocusIndex.current}
+          autoFocus={index === focusIndex}
         />
       ))}
     </div>
