@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -5,7 +6,15 @@ import { Trash2 } from "lucide-react"
 import { FilterMode, FILTER_LABELS } from "@/lib/filters"
 import type { Criterion } from "@/lib/words"
 
-export function CriterionRow({ criterion, onChange, onRemove, canRemove, autoFocus }: Props) {
+export function CriterionRow({ criterion, onChange, onRemove, canRemove, shouldFocus }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (shouldFocus !== undefined) {
+      inputRef.current?.focus()
+    }
+  }, [shouldFocus])
+
   return (
     <div className="flex items-center gap-2">
       <Select
@@ -24,10 +33,10 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove, autoFoc
         </SelectContent>
       </Select>
       <Input
+        ref={inputRef}
         value={criterion.value}
         onChange={(e) => onChange({ ...criterion, value: e.target.value })}
         placeholder="Enter value..."
-        autoFocus={autoFocus}
         className="flex-1 min-w-0 bg-white text-foreground border-transparent focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
       />
       {canRemove ? (
@@ -46,5 +55,5 @@ type Props = {
   onChange: (criterion: Criterion) => void
   onRemove: () => void
   canRemove: boolean
-  autoFocus?: boolean
+  shouldFocus?: number
 }
