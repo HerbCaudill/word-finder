@@ -1,4 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="64" fill="#16a34a"/>
-  <text x="256" y="340" font-family="IBM Plex Mono, monospace" font-size="280" font-weight="700" fill="#ffffff" text-anchor="middle">W</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024">
+  <!-- Generator: Adobe Illustrator 30.1.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 136)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #fff;
+      }
+
+      .st1 {
+        fill: #00a63e;
+      }
+    </style>
+  </defs>
+  <rect class="st1" width="1024" height="1024"/>
+  <g>
+    <path class="st0" d="M194,408.8h-26.4v-37h144.2v37h-31.4l42.1,171.7h3.4l58.4-208.7h67.3l65.6,209.3h3.4l40.4-172.3h-36.5v-37h106.6v37h-26.4l-75.7,257h-62.3l-65.1-204.8h-3.4l-66.2,204.8h-62.3l-75.7-257h0Z"/>
+    <path class="st0" d="M559.2,754.4c0-14,10.1-25.8,24.7-25.8s21.9,9.5,21.9,21.3-3.4,15.2-12.3,20.2l1.7,3.4h3.4c33.1,0,50.5-26.4,61.2-69.6l76.3-306.4h-53.3l5.1-19.1h53.3l13.5-54.4c12.3-50.5,47.1-84.7,97.1-84.7s42.6,12.9,42.6,30.3-10.1,25.8-24.7,25.8-21.9-9.5-21.9-21.3,3.4-15.1,12.3-20.2l-1.7-3.4h-3.9c-35.9.6-56.1,26.9-66.8,69.6l-14.6,58.4h65.1l-5.1,19.1h-65.1l-75.2,302.4c-12.9,51.1-44.3,84.7-90.9,84.7s-42.6-12.9-42.6-30.3h-.1Z"/>
+  </g>
 </svg>
