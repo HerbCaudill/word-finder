@@ -1,11 +1,11 @@
 {
   "name": "Word Finder",
-  "short_name": "WordFinder",
+  "short_name": "Word Finder",
   "description": "Find words matching search criteria",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#09090b",
-  "theme_color": "#09090b",
+  "background_color": "#16A34A",
+  "theme_color": "#16A34A",
   "icons": [
     {
       "src": "/icon-192.png",
