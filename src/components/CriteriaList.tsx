@@ -5,17 +5,18 @@ import { CriterionRow } from './CriterionRow'
 
 export function CriteriaList({ criteria, onChange }: Props) {
   const prevLengthRef = useRef(criteria.length)
-  const [focusTrigger, setFocusTrigger] = useState(0)
+  const [focusState, setFocusState] = useState<{ index: number; trigger: number } | null>(null)
 
   // Re-focus when criteria length decreases (delete/reset)
   useEffect(() => {
     if (criteria.length < prevLengthRef.current) {
-      setFocusTrigger(t => t + 1)
+      const emptyIndex = criteria.findIndex(c => c.value === '')
+      if (emptyIndex >= 0) {
+        setFocusState(prev => ({ index: emptyIndex, trigger: (prev?.trigger ?? 0) + 1 }))
+      }
     }
     prevLengthRef.current = criteria.length
   }, [criteria])
-
-  const focusIndex = criteria.findIndex(c => c.value === '')
 
   const updateCriterion = (index: number, criterion: Criterion) => {
     const next = [...criteria]
@@ -46,7 +47,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
           onChange={c => updateCriterion(index, c)}
           onRemove={() => removeCriterion(index)}
           canRemove={criteria.length > index + 1}
-          shouldFocus={index === focusIndex ? focusTrigger : undefined}
+          shouldFocus={focusState?.index === index ? focusState.trigger : undefined}
         />
       ))}
     </div>
