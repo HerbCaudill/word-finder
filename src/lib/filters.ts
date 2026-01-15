@@ -78,7 +78,7 @@ export function applyFilter(
   value: string
 ): boolean {
   const filter = filters[mode]
-  if (filter.skipNormalization) {
+  if ("skipNormalization" in filter && filter.skipNormalization) {
     return filter.fn(word, value)
   }
   return filter.fn(word.toUpperCase(), value.toUpperCase())
