@@ -42,17 +42,8 @@ export function applyFilter(
     case FilterMode.DoesNotContain:
       return !w.includes(v)
     case FilterMode.ContainsOnly: {
-      const available = [...v].reduce((acc, char) => {
-        acc[char] = (acc[char] || 0) + 1
-        return acc
-      }, {} as Record<string, number>)
-      const needed = [...w].reduce((acc, char) => {
-        acc[char] = (acc[char] || 0) + 1
-        return acc
-      }, {} as Record<string, number>)
-      return Object.entries(needed).every(
-        ([char, count]) => (available[char] || 0) >= count
-      )
+      const allowed = new Set([...v])
+      return [...w].every((char) => allowed.has(char))
     }
     case FilterMode.ContainsAllOf:
       return [...v].every((char) => w.includes(char))
