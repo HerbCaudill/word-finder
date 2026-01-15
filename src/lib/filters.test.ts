@@ -22,13 +22,13 @@ describe("applyFilter", () => {
     expect(applyFilter("HELLO", FilterMode.DoesNotContain, "ELL")).toBe(false)
   })
 
-  it("containsOnly - word can be made from provided letters", () => {
-    expect(applyFilter("HELLO", FilterMode.ContainsOnly, "HELLO")).toBe(true)
-    expect(applyFilter("HELL", FilterMode.ContainsOnly, "HELLO")).toBe(true)
-    expect(applyFilter("HE", FilterMode.ContainsOnly, "HELLO")).toBe(true)
-    expect(applyFilter("HELLOO", FilterMode.ContainsOnly, "HELLO")).toBe(false) // too many O's
-    expect(applyFilter("HELLX", FilterMode.ContainsOnly, "HELLO")).toBe(false) // X not available
-    expect(applyFilter("EEL", FilterMode.ContainsOnly, "HELLO")).toBe(false) // only one E available
+  it("containsOnly - word uses only allowed letters (with repetition)", () => {
+    expect(applyFilter("HELLO", FilterMode.ContainsOnly, "HELO")).toBe(true)
+    expect(applyFilter("HELL", FilterMode.ContainsOnly, "HELO")).toBe(true)
+    expect(applyFilter("HELLOO", FilterMode.ContainsOnly, "HELO")).toBe(true) // repetition allowed
+    expect(applyFilter("EEL", FilterMode.ContainsOnly, "HELO")).toBe(true) // repetition allowed
+    expect(applyFilter("HELLX", FilterMode.ContainsOnly, "HELO")).toBe(false) // X not in allowed set
+    expect(applyFilter("WORLD", FilterMode.ContainsOnly, "HELO")).toBe(false) // W, R, D not allowed
   })
 
   it("containsAllOf - all letters present", () => {
