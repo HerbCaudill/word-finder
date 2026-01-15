@@ -1,4 +1,62 @@
-export const FilterMode = {
+export const filters = {
+  contains: {
+    label: "Contains",
+    fn: (word: string, value: string): boolean => word.includes(value),
+  },
+  startsWith: {
+    label: "Starts with",
+    fn: (word: string, value: string): boolean => word.startsWith(value),
+  },
+  endsWith: {
+    label: "Ends with",
+    fn: (word: string, value: string): boolean => word.endsWith(value),
+  },
+  doesNotContain: {
+    label: "Does not contain",
+    fn: (word: string, value: string): boolean => !word.includes(value),
+  },
+  containsOnly: {
+    label: "Contains only",
+    fn: (word: string, value: string): boolean => {
+      const allowed = new Set(value)
+      return [...word].every((char) => allowed.has(char))
+    },
+  },
+  containsAllOf: {
+    label: "Contains all of",
+    fn: (word: string, value: string): boolean =>
+      [...value].every((char) => word.includes(char)),
+  },
+  containsNoneOf: {
+    label: "Contains none of",
+    fn: (word: string, value: string): boolean =>
+      ![...value].some((char) => word.includes(char)),
+  },
+  matchesRegex: {
+    label: "Matches regex",
+    fn: (word: string, value: string): boolean => {
+      try {
+        return new RegExp(value, "i").test(word)
+      } catch {
+        return false
+      }
+    },
+    skipNormalization: true,
+  },
+  hasLength: {
+    label: "Has length",
+    fn: (word: string, value: string): boolean =>
+      word.length === parseInt(value, 10),
+    skipNormalization: true,
+  },
+} as const satisfies Record<
+  string,
+  { label: string; fn: (word: string, value: string) => boolean; skipNormalization?: boolean }
+>
+
+export type FilterMode = keyof typeof filters
+
+export const FilterMode: { [K in FilterMode as Capitalize<K>]: K } = {
   Contains: "contains",
   StartsWith: "startsWith",
   EndsWith: "endsWith",
@@ -8,56 +66,20 @@ export const FilterMode = {
   ContainsNoneOf: "containsNoneOf",
   MatchesRegex: "matchesRegex",
   HasLength: "hasLength",
-} as const
-
-export type FilterMode = (typeof FilterMode)[keyof typeof FilterMode]
-
-export const FILTER_LABELS: Record<FilterMode, string> = {
-  [FilterMode.Contains]: "Contains",
-  [FilterMode.StartsWith]: "Starts with",
-  [FilterMode.EndsWith]: "Ends with",
-  [FilterMode.DoesNotContain]: "Does not contain",
-  [FilterMode.ContainsOnly]: "Contains only",
-  [FilterMode.ContainsAllOf]: "Contains all of",
-  [FilterMode.ContainsNoneOf]: "Contains none of",
-  [FilterMode.MatchesRegex]: "Matches regex",
-  [FilterMode.HasLength]: "Has length",
 }
+
+export const FILTER_LABELS: Record<FilterMode, string> = Object.fromEntries(
+  Object.entries(filters).map(([key, { label }]) => [key, label])
+) as Record<FilterMode, string>
 
 export function applyFilter(
   word: string,
   mode: FilterMode,
   value: string
 ): boolean {
-  const w = word.toUpperCase()
-  const v = value.toUpperCase()
-
-  switch (mode) {
-    case FilterMode.Contains:
-      return w.includes(v)
-    case FilterMode.StartsWith:
-      return w.startsWith(v)
-    case FilterMode.EndsWith:
-      return w.endsWith(v)
-    case FilterMode.DoesNotContain:
-      return !w.includes(v)
-    case FilterMode.ContainsOnly: {
-      const allowed = new Set(v)
-      return [...w].every((char) => allowed.has(char))
-    }
-    case FilterMode.ContainsAllOf:
-      return [...v].every((char) => w.includes(char))
-    case FilterMode.ContainsNoneOf:
-      return ![...v].some((char) => w.includes(char))
-    case FilterMode.MatchesRegex:
-      try {
-        return new RegExp(value, "i").test(word)
-      } catch {
-        return false
-      }
-    case FilterMode.HasLength:
-      return word.length === parseInt(value, 10)
-    default:
-      return true
+  const filter = filters[mode]
+  if (filter.skipNormalization) {
+    return filter.fn(word, value)
   }
+  return filter.fn(word.toUpperCase(), value.toUpperCase())
 }
