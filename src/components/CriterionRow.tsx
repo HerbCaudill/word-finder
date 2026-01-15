@@ -19,7 +19,10 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove, shouldF
     <div className="flex items-center gap-2">
       <Select
         value={criterion.mode}
-        onValueChange={(mode) => onChange({ ...criterion, mode: mode as FilterMode })}
+        onValueChange={(mode) => {
+          onChange({ ...criterion, mode: mode as FilterMode })
+          inputRef.current?.focus()
+        }}
       >
         <SelectTrigger className="w-40 shrink-0 bg-white text-foreground border-transparent focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0 focus-visible:border-transparent">
           <SelectValue />
