@@ -22,9 +22,13 @@ describe("applyFilter", () => {
     expect(applyFilter("HELLO", FilterMode.DoesNotContain, "ELL")).toBe(false)
   })
 
-  it("containsAnyOf - at least one letter present", () => {
-    expect(applyFilter("HELLO", FilterMode.ContainsAnyOf, "XYZ")).toBe(false)
-    expect(applyFilter("HELLO", FilterMode.ContainsAnyOf, "AEI")).toBe(true)
+  it("containsOnly - word can be made from provided letters", () => {
+    expect(applyFilter("HELLO", FilterMode.ContainsOnly, "HELLO")).toBe(true)
+    expect(applyFilter("HELL", FilterMode.ContainsOnly, "HELLO")).toBe(true)
+    expect(applyFilter("HE", FilterMode.ContainsOnly, "HELLO")).toBe(true)
+    expect(applyFilter("HELLOO", FilterMode.ContainsOnly, "HELLO")).toBe(false) // too many O's
+    expect(applyFilter("HELLX", FilterMode.ContainsOnly, "HELLO")).toBe(false) // X not available
+    expect(applyFilter("EEL", FilterMode.ContainsOnly, "HELLO")).toBe(false) // only one E available
   })
 
   it("containsAllOf - all letters present", () => {

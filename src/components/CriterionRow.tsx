@@ -36,6 +36,7 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove, shouldF
         ref={inputRef}
         value={criterion.value}
         onChange={(e) => onChange({ ...criterion, value: e.target.value })}
+        onFocus={(e) => e.target.select()}
         placeholder="Enter value..."
         className="flex-1 min-w-0 bg-white text-foreground border-transparent focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
       />

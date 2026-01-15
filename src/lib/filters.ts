@@ -3,7 +3,7 @@ export const FilterMode = {
   StartsWith: "startsWith",
   EndsWith: "endsWith",
   DoesNotContain: "doesNotContain",
-  ContainsAnyOf: "containsAnyOf",
+  ContainsOnly: "containsOnly",
   ContainsAllOf: "containsAllOf",
   ContainsNoneOf: "containsNoneOf",
   MatchesRegex: "matchesRegex",
@@ -17,7 +17,7 @@ export const FILTER_LABELS: Record<FilterMode, string> = {
   [FilterMode.StartsWith]: "Starts with",
   [FilterMode.EndsWith]: "Ends with",
   [FilterMode.DoesNotContain]: "Does not contain",
-  [FilterMode.ContainsAnyOf]: "Contains any of",
+  [FilterMode.ContainsOnly]: "Contains only",
   [FilterMode.ContainsAllOf]: "Contains all of",
   [FilterMode.ContainsNoneOf]: "Contains none of",
   [FilterMode.MatchesRegex]: "Matches regex",
@@ -41,8 +41,19 @@ export function applyFilter(
       return w.endsWith(v)
     case FilterMode.DoesNotContain:
       return !w.includes(v)
-    case FilterMode.ContainsAnyOf:
-      return [...v].some((char) => w.includes(char))
+    case FilterMode.ContainsOnly: {
+      const available = [...v].reduce((acc, char) => {
+        acc[char] = (acc[char] || 0) + 1
+        return acc
+      }, {} as Record<string, number>)
+      const needed = [...w].reduce((acc, char) => {
+        acc[char] = (acc[char] || 0) + 1
+        return acc
+      }, {} as Record<string, number>)
+      return Object.entries(needed).every(
+        ([char, count]) => (available[char] || 0) >= count
+      )
+    }
     case FilterMode.ContainsAllOf:
       return [...v].every((char) => w.includes(char))
     case FilterMode.ContainsNoneOf:
