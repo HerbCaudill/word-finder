@@ -1,58 +1,36 @@
-const normalize = (word: string, value: string) => ({
-  w: word.toUpperCase(),
-  v: value.toUpperCase(),
-})
-
 export const filters = {
   contains: {
     label: "Contains",
-    fn: (word: string, value: string): boolean => {
-      const { w, v } = normalize(word, value)
-      return w.includes(v)
-    },
+    fn: (word: string, value: string): boolean => word.includes(value),
   },
   startsWith: {
     label: "Starts with",
-    fn: (word: string, value: string): boolean => {
-      const { w, v } = normalize(word, value)
-      return w.startsWith(v)
-    },
+    fn: (word: string, value: string): boolean => word.startsWith(value),
   },
   endsWith: {
     label: "Ends with",
-    fn: (word: string, value: string): boolean => {
-      const { w, v } = normalize(word, value)
-      return w.endsWith(v)
-    },
+    fn: (word: string, value: string): boolean => word.endsWith(value),
   },
   doesNotContain: {
     label: "Does not contain",
-    fn: (word: string, value: string): boolean => {
-      const { w, v } = normalize(word, value)
-      return !w.includes(v)
-    },
+    fn: (word: string, value: string): boolean => !word.includes(value),
   },
   containsOnly: {
     label: "Contains only",
     fn: (word: string, value: string): boolean => {
-      const { w, v } = normalize(word, value)
-      const allowed = new Set(v)
-      return [...w].every((char) => allowed.has(char))
+      const allowed = new Set(value)
+      return [...word].every((char) => allowed.has(char))
     },
   },
   containsAllOf: {
     label: "Contains all of",
-    fn: (word: string, value: string): boolean => {
-      const { w, v } = normalize(word, value)
-      return [...v].every((char) => w.includes(char))
-    },
+    fn: (word: string, value: string): boolean =>
+      [...value].every((char) => word.includes(char)),
   },
   containsNoneOf: {
     label: "Contains none of",
-    fn: (word: string, value: string): boolean => {
-      const { w, v } = normalize(word, value)
-      return ![...v].some((char) => w.includes(char))
-    },
+    fn: (word: string, value: string): boolean =>
+      ![...value].some((char) => word.includes(char)),
   },
   matchesRegex: {
     label: "Matches regex",
@@ -63,14 +41,18 @@ export const filters = {
         return false
       }
     },
+    skipNormalization: true,
   },
   hasLength: {
     label: "Has length",
-    fn: (word: string, value: string): boolean => {
-      return word.length === parseInt(value, 10)
-    },
+    fn: (word: string, value: string): boolean =>
+      word.length === parseInt(value, 10),
+    skipNormalization: true,
   },
-} as const satisfies Record<string, { label: string; fn: (word: string, value: string) => boolean }>
+} as const satisfies Record<
+  string,
+  { label: string; fn: (word: string, value: string) => boolean; skipNormalization?: boolean }
+>
 
 export type FilterMode = keyof typeof filters
 
@@ -95,5 +77,9 @@ export function applyFilter(
   mode: FilterMode,
   value: string
 ): boolean {
-  return filters[mode].fn(word, value)
+  const filter = filters[mode]
+  if (filter.skipNormalization) {
+    return filter.fn(word, value)
+  }
+  return filter.fn(word.toUpperCase(), value.toUpperCase())
 }
