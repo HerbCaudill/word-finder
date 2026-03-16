@@ -1,19 +1,21 @@
 import { useEffect, useMemo, useState } from "react"
 import { CriteriaList } from "@/components/CriteriaList"
+import { DictionaryPicker } from "@/components/DictionaryPicker"
 import { ResultsList } from "@/components/ResultsList"
 import { Button } from "@/components/ui/button"
 import { RotateCcw } from "lucide-react"
-import type { Word } from "@herbcaudill/scrabble-words"
 import type { Criterion } from "@/lib/words"
 import { filterWords } from "@/lib/words"
 import { FilterMode } from "@/lib/filters"
-import { loadWords } from "@/lib/loadWords"
+import { loadWords, type Dictionary } from "@/lib/loadWords"
 
 const DEBOUNCE_MS = 150
 const STORAGE_KEY = "word-finder-criteria"
+const DICTIONARY_KEY = "word-finder-dictionary"
 
 const DEFAULT_CRITERIA: Criterion[] = [{ mode: FilterMode.Contains, value: "" }]
 
+/** Load persisted criteria from localStorage. */
 function loadCriteria(): Criterion[] {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
@@ -29,10 +31,23 @@ function loadCriteria(): Criterion[] {
   return DEFAULT_CRITERIA
 }
 
+/** Load persisted dictionary choice from localStorage. */
+function loadDictionary(): Dictionary {
+  const stored = localStorage.getItem(DICTIONARY_KEY)
+  if (stored === "csw21" || stored === "nwl2018") return stored
+  return "csw21"
+}
+
 export function App() {
-  const [words] = useState<Word[]>(loadWords)
+  const [dictionary, setDictionary] = useState<Dictionary>(loadDictionary)
+  const words = useMemo(() => loadWords(dictionary), [dictionary])
   const [criteria, setCriteria] = useState<Criterion[]>(loadCriteria)
   const [debouncedCriteria, setDebouncedCriteria] = useState(criteria)
+
+  // Persist dictionary choice to localStorage
+  useEffect(() => {
+    localStorage.setItem(DICTIONARY_KEY, dictionary)
+  }, [dictionary])
 
   // Persist criteria to localStorage
   useEffect(() => {
@@ -60,17 +75,20 @@ export function App() {
           <CriteriaList criteria={criteria} onChange={setCriteria} />
           <div className="px-4 py-2 text-sm text-white/70 font-semibold flex items-center justify-between">
             <span>{filteredWords.length.toLocaleString()} matches</span>
-            {hasActiveFilters && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setCriteria(DEFAULT_CRITERIA)}
-                className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
-              >
-                <RotateCcw className="h-3 w-3 mr-1" />
-                Reset
-              </Button>
-            )}
+            <div className="flex items-center gap-1">
+              {hasActiveFilters && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setCriteria(DEFAULT_CRITERIA)}
+                  className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
+                >
+                  <RotateCcw className="h-3 w-3 mr-1" />
+                  Reset
+                </Button>
+              )}
+              <DictionaryPicker value={dictionary} onChange={setDictionary} />
+            </div>
           </div>
         </div>
       </header>

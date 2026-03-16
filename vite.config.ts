@@ -40,7 +40,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
-        maximumFileSizeToCacheInBytes: 30 * 1024 * 1024, // 30 MB to accommodate word data
+        maximumFileSizeToCacheInBytes: 50 * 1024 * 1024, // 50 MB to accommodate both dictionaries
       },
     }),
   ],
