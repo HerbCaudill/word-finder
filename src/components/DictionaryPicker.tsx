@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Settings } from "lucide-react"
+import { Check, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { DICTIONARY_LABELS, type Dictionary } from "@/lib/loadWords"
@@ -27,10 +27,11 @@ export function DictionaryPicker({ value, onChange }: Props) {
               onChange(key)
               setOpen(false)
             }}
-            className={`w-full text-left text-sm px-3 py-1.5 rounded hover:bg-muted ${
+            className={`w-full text-left text-sm px-3 py-1.5 rounded hover:bg-muted flex items-center gap-2 ${
               value === key ? "font-semibold" : ""
             }`}
           >
+            <Check className={`h-3.5 w-3.5 shrink-0 ${value === key ? "opacity-100" : "opacity-0"}`} />
             {label}
           </button>
         ))}
