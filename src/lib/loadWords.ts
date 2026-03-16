@@ -11,6 +11,6 @@ export function loadWords(dictionary: Dictionary): Word[] {
 export type Dictionary = "csw21" | "nwl2018"
 
 export const DICTIONARY_LABELS: Record<Dictionary, string> = {
-  csw21: "International",
-  nwl2018: "US",
+  csw21: "International (CSW21)",
+  nwl2018: "US (NWL2018)",
 }
