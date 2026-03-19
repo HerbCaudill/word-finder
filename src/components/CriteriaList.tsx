@@ -39,7 +39,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
   }
 
   return (
-    <div className="p-3 space-y-2">
+    <div className="p-3 space-y-2 max-h-[13.25rem] overflow-y-auto">
       {criteria.map((criterion, index) => (
         <CriterionRow
           key={index}
