@@ -43,6 +43,19 @@ export const filters = {
     },
     skipNormalization: true,
   },
+  permutes: {
+    label: "Permutes",
+    fn: (word: string, value: string): boolean => {
+      if (word.length > value.length) return false
+      const available = [...value]
+      for (const char of word) {
+        const index = available.indexOf(char)
+        if (index === -1) return false
+        available.splice(index, 1)
+      }
+      return true
+    },
+  },
   hasLength: {
     label: "Has length",
     fn: (word: string, value: string): boolean =>
@@ -64,6 +77,7 @@ export const FilterMode: { [K in FilterMode as Capitalize<K>]: K } = {
   ContainsOnly: "containsOnly",
   ContainsAllOf: "containsAllOf",
   ContainsNoneOf: "containsNoneOf",
+  Permutes: "permutes",
   MatchesRegex: "matchesRegex",
   HasLength: "hasLength",
 }

@@ -46,6 +46,16 @@ describe("applyFilter", () => {
     expect(applyFilter("HELLO", FilterMode.MatchesRegex, "^X")).toBe(false)
   })
 
+  it("permutes - words using subset of letters respecting count", () => {
+    expect(applyFilter("CAB", FilterMode.Permutes, "ABC")).toBe(true)
+    expect(applyFilter("AB", FilterMode.Permutes, "ABC")).toBe(true)
+    expect(applyFilter("A", FilterMode.Permutes, "ABC")).toBe(true)
+    expect(applyFilter("AAB", FilterMode.Permutes, "ABC")).toBe(false) // only one A available
+    expect(applyFilter("ABCD", FilterMode.Permutes, "ABC")).toBe(false) // D not available
+    expect(applyFilter("AA", FilterMode.Permutes, "AAB")).toBe(true) // two A's available
+    expect(applyFilter("AAA", FilterMode.Permutes, "AAB")).toBe(false) // only two A's
+  })
+
   it("hasLength - exact length match", () => {
     expect(applyFilter("HELLO", FilterMode.HasLength, "5")).toBe(true)
     expect(applyFilter("HELLO", FilterMode.HasLength, "4")).toBe(false)
