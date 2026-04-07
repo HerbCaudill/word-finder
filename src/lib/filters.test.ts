@@ -7,9 +7,20 @@ describe("applyFilter", () => {
     expect(applyFilter("HELLO", FilterMode.Contains, "XYZ")).toBe(false)
   })
 
+  it("contains - supports regex", () => {
+    expect(applyFilter("HELLO", FilterMode.Contains, "H.*O")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.Contains, "^H.*O$")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.Contains, "^X")).toBe(false)
+  })
+
   it("startsWith - matches prefix", () => {
     expect(applyFilter("HELLO", FilterMode.StartsWith, "HE")).toBe(true)
     expect(applyFilter("HELLO", FilterMode.StartsWith, "LO")).toBe(false)
+  })
+
+  it("startsWith - supports regex", () => {
+    expect(applyFilter("HELLO", FilterMode.StartsWith, "H.L")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.StartsWith, "L.")).toBe(false)
   })
 
   it("endsWith - matches suffix", () => {
@@ -17,9 +28,19 @@ describe("applyFilter", () => {
     expect(applyFilter("HELLO", FilterMode.EndsWith, "HE")).toBe(false)
   })
 
+  it("endsWith - supports regex", () => {
+    expect(applyFilter("HELLO", FilterMode.EndsWith, "L.")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.EndsWith, "H.")).toBe(false)
+  })
+
   it("doesNotContain - excludes substring", () => {
     expect(applyFilter("HELLO", FilterMode.DoesNotContain, "XYZ")).toBe(true)
     expect(applyFilter("HELLO", FilterMode.DoesNotContain, "ELL")).toBe(false)
+  })
+
+  it("doesNotContain - supports regex", () => {
+    expect(applyFilter("HELLO", FilterMode.DoesNotContain, "^X")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.DoesNotContain, "H.*O")).toBe(false)
   })
 
   it("containsOnly - word uses only allowed letters (with repetition)", () => {
@@ -39,11 +60,6 @@ describe("applyFilter", () => {
   it("containsNoneOf - no letters present", () => {
     expect(applyFilter("HELLO", FilterMode.ContainsNoneOf, "XYZ")).toBe(true)
     expect(applyFilter("HELLO", FilterMode.ContainsNoneOf, "AEI")).toBe(false)
-  })
-
-  it("matchesRegex - regex pattern matches", () => {
-    expect(applyFilter("HELLO", FilterMode.MatchesRegex, "^H.*O$")).toBe(true)
-    expect(applyFilter("HELLO", FilterMode.MatchesRegex, "^X")).toBe(false)
   })
 
   it("permutes - words using subset of letters respecting count", () => {

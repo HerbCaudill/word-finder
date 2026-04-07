@@ -1,19 +1,47 @@
 export const filters = {
   contains: {
     label: "Contains",
-    fn: (word: string, value: string): boolean => word.includes(value),
+    fn: (word: string, value: string): boolean => {
+      try {
+        return new RegExp(value, "i").test(word)
+      } catch {
+        return false
+      }
+    },
+    skipNormalization: true,
   },
   startsWith: {
     label: "Starts with",
-    fn: (word: string, value: string): boolean => word.startsWith(value),
+    fn: (word: string, value: string): boolean => {
+      try {
+        return new RegExp(`^(?:${value})`, "i").test(word)
+      } catch {
+        return false
+      }
+    },
+    skipNormalization: true,
   },
   endsWith: {
     label: "Ends with",
-    fn: (word: string, value: string): boolean => word.endsWith(value),
+    fn: (word: string, value: string): boolean => {
+      try {
+        return new RegExp(`(?:${value})$`, "i").test(word)
+      } catch {
+        return false
+      }
+    },
+    skipNormalization: true,
   },
   doesNotContain: {
     label: "Does not contain",
-    fn: (word: string, value: string): boolean => !word.includes(value),
+    fn: (word: string, value: string): boolean => {
+      try {
+        return !new RegExp(value, "i").test(word)
+      } catch {
+        return false
+      }
+    },
+    skipNormalization: true,
   },
   containsOnly: {
     label: "Contains only",
@@ -31,17 +59,6 @@ export const filters = {
     label: "Contains none of",
     fn: (word: string, value: string): boolean =>
       ![...value].some((char) => word.includes(char)),
-  },
-  matchesRegex: {
-    label: "Matches regex",
-    fn: (word: string, value: string): boolean => {
-      try {
-        return new RegExp(value, "i").test(word)
-      } catch {
-        return false
-      }
-    },
-    skipNormalization: true,
   },
   permutes: {
     label: "Permutes",
@@ -78,7 +95,6 @@ export const FilterMode: { [K in FilterMode as Capitalize<K>]: K } = {
   ContainsAllOf: "containsAllOf",
   ContainsNoneOf: "containsNoneOf",
   Permutes: "permutes",
-  MatchesRegex: "matchesRegex",
   HasLength: "hasLength",
 }
 
