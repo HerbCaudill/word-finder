@@ -41,7 +41,7 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove, shouldF
         onChange={(e) => onChange({ ...criterion, value: e.target.value })}
         onFocus={(e) => e.target.select()}
         placeholder="Enter value..."
-        className="flex-1 min-w-0 bg-white text-foreground border-transparent focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
+        className="flex-1 min-w-0 bg-white text-foreground uppercase placeholder:normal-case border-transparent focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
       />
       {canRemove ? (
         <Button variant="ghost" size="icon" onClick={onRemove} className="shrink-0 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0">
