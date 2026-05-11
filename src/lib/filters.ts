@@ -66,7 +66,8 @@ export const filters = {
       if (word.length > value.length) return false
       const available = [...value]
       for (const char of word) {
-        const index = available.indexOf(char)
+        let index = available.indexOf(char)
+        if (index === -1) index = available.indexOf(".")
         if (index === -1) return false
         available.splice(index, 1)
       }

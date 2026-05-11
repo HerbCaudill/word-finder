@@ -72,6 +72,17 @@ describe("applyFilter", () => {
     expect(applyFilter("AAA", FilterMode.Permutes, "AAB")).toBe(false) // only two A's
   })
 
+  it("permutes - '.' acts as a wildcard", () => {
+    expect(applyFilter("CAT", FilterMode.Permutes, "CA.")).toBe(true)
+    expect(applyFilter("DOG", FilterMode.Permutes, "..G")).toBe(true)
+    expect(applyFilter("ZZZ", FilterMode.Permutes, "...")).toBe(true)
+    expect(applyFilter("CATS", FilterMode.Permutes, "CA.")).toBe(false) // too long
+    expect(applyFilter("AAA", FilterMode.Permutes, "AA.")).toBe(true) // wildcard covers third A
+    expect(applyFilter("AAAA", FilterMode.Permutes, "AA.")).toBe(false) // only one wildcard
+    expect(applyFilter("ABC", FilterMode.Permutes, "AB.")).toBe(true)
+    expect(applyFilter("AB.", FilterMode.Permutes, "ABC")).toBe(false) // '.' in word is literal, not in rack
+  })
+
   it("hasLength - exact length match", () => {
     expect(applyFilter("HELLO", FilterMode.HasLength, "5")).toBe(true)
     expect(applyFilter("HELLO", FilterMode.HasLength, "4")).toBe(false)
