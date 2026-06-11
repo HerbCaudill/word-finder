@@ -127,7 +127,16 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
   body {
     @apply bg-background text-foreground;
+    /* Lock the document so the page itself can't scroll or rubber-band,
+       which would otherwise drag the fixed header along with it on mobile. */
+    overflow: hidden;
+    overscroll-behavior: none;
   }
 }
