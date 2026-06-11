@@ -38,7 +38,7 @@ export function CriterionRow({ criterion, onChange, onRemove, canRemove, shouldF
       <Input
         ref={inputRef}
         value={criterion.value}
-        onChange={(e) => onChange({ ...criterion, value: e.target.value })}
+        onChange={(e) => onChange({ ...criterion, value: e.target.value.replace(/\s/g, "") })}
         onFocus={(e) => e.target.select()}
         placeholder="Enter value..."
         className="flex-1 min-w-0 bg-white text-foreground uppercase placeholder:normal-case border-transparent focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
