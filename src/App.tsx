@@ -69,7 +69,7 @@ export function App() {
   const hasActiveFilters = criteria.some(c => c.value.trim() !== "")
 
   return (
-    <div className="h-dvh flex flex-col bg-background text-foreground">
+    <div className="fixed inset-0 flex flex-col bg-background text-foreground">
       <header className="shrink-0 bg-green-600 text-white pt-[env(safe-area-inset-top)]">
         <div className="max-w-3xl mx-auto">
           <CriteriaList criteria={criteria} onChange={setCriteria} />
