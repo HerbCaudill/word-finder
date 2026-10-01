@@ -1,5 +1,5 @@
-import type { Word } from '@herbcaudill/scrabble-words'
-import { applyFilter, FilterMode } from './filters'
+import type { Word } from "@herbcaudill/scrabble-words"
+import { applyFilter, FilterMode } from "./filters"
 
 export type Criterion = {
   mode: FilterMode
@@ -18,5 +18,7 @@ export function sortWords(words: Word[]): Word[] {
 export function filterWords(words: Word[], criteria: Criterion[]): Word[] {
   if (criteria.length === 0) return words
 
-  return words.filter(w => criteria.every(c => c.value === '' || applyFilter(w.word, c.mode, c.value)))
+  return words.filter(w =>
+    criteria.every(c => c.value === "" || applyFilter(w.word, c.mode, c.value)),
+  )
 }

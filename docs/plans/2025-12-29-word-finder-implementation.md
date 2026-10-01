@@ -68,9 +68,9 @@ pnpm add tailwindcss @tailwindcss/vite
 Modify `vite.config.ts`:
 
 ```typescript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import tailwindcss from "@tailwindcss/vite"
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
@@ -82,7 +82,7 @@ export default defineConfig({
 Replace `src/index.css` with:
 
 ```css
-@import 'tailwindcss';
+@import "tailwindcss";
 ```
 
 **Step 4: Install shadcn/ui**
@@ -127,10 +127,10 @@ pnpm add @fontsource/ibm-plex-sans @fontsource/ibm-plex-mono
 Add to top of `src/index.css`:
 
 ```css
-@import '@fontsource/ibm-plex-sans/400.css';
-@import '@fontsource/ibm-plex-sans/500.css';
-@import '@fontsource/ibm-plex-sans/600.css';
-@import '@fontsource/ibm-plex-mono/400.css';
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
 ```
 
 **Step 3: Configure font family in Tailwind**
@@ -139,8 +139,8 @@ Add to `src/index.css` after the imports:
 
 ```css
 @theme {
-  --font-sans: 'IBM Plex Sans', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
 }
 ```
 
@@ -179,10 +179,10 @@ curl -o scripts/CSW21.txt "https://raw.githubusercontent.com/scrabblewords/scrab
 Create `scripts/parse-words.ts`:
 
 ```typescript
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync, writeFileSync } from "fs"
 
-const input = readFileSync('scripts/CSW21.txt', 'utf-8')
-const lines = input.split('\n').filter(line => line && !line.startsWith('#'))
+const input = readFileSync("scripts/CSW21.txt", "utf-8")
+const lines = input.split("\n").filter(line => line && !line.startsWith("#"))
 
 const words = lines
   .map(line => {
@@ -192,7 +192,7 @@ const words = lines
   })
   .filter(Boolean)
 
-writeFileSync('src/data/words.json', JSON.stringify(words))
+writeFileSync("src/data/words.json", JSON.stringify(words))
 console.log(`Parsed ${words.length} words`)
 ```
 
@@ -235,57 +235,57 @@ git commit -m "data: parse Collins Scrabble Dictionary"
 Create `src/lib/filters.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest'
-import { applyFilter, FilterMode } from './filters'
+import { describe, it, expect } from "vitest"
+import { applyFilter, FilterMode } from "./filters"
 
-describe('applyFilter', () => {
-  it('contains - matches substring', () => {
-    expect(applyFilter('HELLO', FilterMode.Contains, 'ELL')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.Contains, 'XYZ')).toBe(false)
+describe("applyFilter", () => {
+  it("contains - matches substring", () => {
+    expect(applyFilter("HELLO", FilterMode.Contains, "ELL")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.Contains, "XYZ")).toBe(false)
   })
 
-  it('startsWith - matches prefix', () => {
-    expect(applyFilter('HELLO', FilterMode.StartsWith, 'HE')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.StartsWith, 'LO')).toBe(false)
+  it("startsWith - matches prefix", () => {
+    expect(applyFilter("HELLO", FilterMode.StartsWith, "HE")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.StartsWith, "LO")).toBe(false)
   })
 
-  it('endsWith - matches suffix', () => {
-    expect(applyFilter('HELLO', FilterMode.EndsWith, 'LO')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.EndsWith, 'HE')).toBe(false)
+  it("endsWith - matches suffix", () => {
+    expect(applyFilter("HELLO", FilterMode.EndsWith, "LO")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.EndsWith, "HE")).toBe(false)
   })
 
-  it('doesNotContain - excludes substring', () => {
-    expect(applyFilter('HELLO', FilterMode.DoesNotContain, 'XYZ')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.DoesNotContain, 'ELL')).toBe(false)
+  it("doesNotContain - excludes substring", () => {
+    expect(applyFilter("HELLO", FilterMode.DoesNotContain, "XYZ")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.DoesNotContain, "ELL")).toBe(false)
   })
 
-  it('containsAnyOf - at least one letter present', () => {
-    expect(applyFilter('HELLO', FilterMode.ContainsAnyOf, 'XYZ')).toBe(false)
-    expect(applyFilter('HELLO', FilterMode.ContainsAnyOf, 'AEI')).toBe(true)
+  it("containsAnyOf - at least one letter present", () => {
+    expect(applyFilter("HELLO", FilterMode.ContainsAnyOf, "XYZ")).toBe(false)
+    expect(applyFilter("HELLO", FilterMode.ContainsAnyOf, "AEI")).toBe(true)
   })
 
-  it('containsAllOf - all letters present', () => {
-    expect(applyFilter('HELLO', FilterMode.ContainsAllOf, 'HEL')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.ContainsAllOf, 'HEX')).toBe(false)
+  it("containsAllOf - all letters present", () => {
+    expect(applyFilter("HELLO", FilterMode.ContainsAllOf, "HEL")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.ContainsAllOf, "HEX")).toBe(false)
   })
 
-  it('containsNoneOf - no letters present', () => {
-    expect(applyFilter('HELLO', FilterMode.ContainsNoneOf, 'XYZ')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.ContainsNoneOf, 'AEI')).toBe(false)
+  it("containsNoneOf - no letters present", () => {
+    expect(applyFilter("HELLO", FilterMode.ContainsNoneOf, "XYZ")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.ContainsNoneOf, "AEI")).toBe(false)
   })
 
-  it('matchesRegex - regex pattern matches', () => {
-    expect(applyFilter('HELLO', FilterMode.MatchesRegex, '^H.*O$')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.MatchesRegex, '^X')).toBe(false)
+  it("matchesRegex - regex pattern matches", () => {
+    expect(applyFilter("HELLO", FilterMode.MatchesRegex, "^H.*O$")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.MatchesRegex, "^X")).toBe(false)
   })
 
-  it('hasLength - exact length match', () => {
-    expect(applyFilter('HELLO', FilterMode.HasLength, '5')).toBe(true)
-    expect(applyFilter('HELLO', FilterMode.HasLength, '4')).toBe(false)
+  it("hasLength - exact length match", () => {
+    expect(applyFilter("HELLO", FilterMode.HasLength, "5")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.HasLength, "4")).toBe(false)
   })
 
-  it('handles case insensitivity', () => {
-    expect(applyFilter('HELLO', FilterMode.Contains, 'ell')).toBe(true)
+  it("handles case insensitivity", () => {
+    expect(applyFilter("HELLO", FilterMode.Contains, "ell")).toBe(true)
   })
 })
 ```
@@ -309,27 +309,27 @@ Create `src/lib/filters.ts`:
 
 ```typescript
 export enum FilterMode {
-  Contains = 'contains',
-  StartsWith = 'startsWith',
-  EndsWith = 'endsWith',
-  DoesNotContain = 'doesNotContain',
-  ContainsAnyOf = 'containsAnyOf',
-  ContainsAllOf = 'containsAllOf',
-  ContainsNoneOf = 'containsNoneOf',
-  MatchesRegex = 'matchesRegex',
-  HasLength = 'hasLength',
+  Contains = "contains",
+  StartsWith = "startsWith",
+  EndsWith = "endsWith",
+  DoesNotContain = "doesNotContain",
+  ContainsAnyOf = "containsAnyOf",
+  ContainsAllOf = "containsAllOf",
+  ContainsNoneOf = "containsNoneOf",
+  MatchesRegex = "matchesRegex",
+  HasLength = "hasLength",
 }
 
 export const FILTER_LABELS: Record<FilterMode, string> = {
-  [FilterMode.Contains]: 'Contains',
-  [FilterMode.StartsWith]: 'Starts with',
-  [FilterMode.EndsWith]: 'Ends with',
-  [FilterMode.DoesNotContain]: 'Does not contain',
-  [FilterMode.ContainsAnyOf]: 'Contains any of',
-  [FilterMode.ContainsAllOf]: 'Contains all of',
-  [FilterMode.ContainsNoneOf]: 'Contains none of',
-  [FilterMode.MatchesRegex]: 'Matches regex',
-  [FilterMode.HasLength]: 'Has length',
+  [FilterMode.Contains]: "Contains",
+  [FilterMode.StartsWith]: "Starts with",
+  [FilterMode.EndsWith]: "Ends with",
+  [FilterMode.DoesNotContain]: "Does not contain",
+  [FilterMode.ContainsAnyOf]: "Contains any of",
+  [FilterMode.ContainsAllOf]: "Contains all of",
+  [FilterMode.ContainsNoneOf]: "Contains none of",
+  [FilterMode.MatchesRegex]: "Matches regex",
+  [FilterMode.HasLength]: "Has length",
 }
 
 export function applyFilter(word: string, mode: FilterMode, value: string): boolean {
@@ -353,7 +353,7 @@ export function applyFilter(word: string, mode: FilterMode, value: string): bool
       return ![...v].some(char => w.includes(char))
     case FilterMode.MatchesRegex:
       try {
-        return new RegExp(value, 'i').test(word)
+        return new RegExp(value, "i").test(word)
       } catch {
         return false
       }
@@ -391,46 +391,46 @@ git commit -m "filters: add filter functions with tests"
 Create `src/lib/words.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest'
-import { filterWords, sortWords } from './words'
-import { FilterMode } from './filters'
+import { describe, it, expect } from "vitest"
+import { filterWords, sortWords } from "./words"
+import { FilterMode } from "./filters"
 
-describe('sortWords', () => {
-  it('sorts by length descending, then alphabetically', () => {
+describe("sortWords", () => {
+  it("sorts by length descending, then alphabetically", () => {
     const words = [
-      { word: 'CAT', definition: '' },
-      { word: 'APPLE', definition: '' },
-      { word: 'DOG', definition: '' },
-      { word: 'ZEBRA', definition: '' },
+      { word: "CAT", definition: "" },
+      { word: "APPLE", definition: "" },
+      { word: "DOG", definition: "" },
+      { word: "ZEBRA", definition: "" },
     ]
     const sorted = sortWords(words)
-    expect(sorted.map(w => w.word)).toEqual(['APPLE', 'ZEBRA', 'CAT', 'DOG'])
+    expect(sorted.map(w => w.word)).toEqual(["APPLE", "ZEBRA", "CAT", "DOG"])
   })
 })
 
-describe('filterWords', () => {
+describe("filterWords", () => {
   const words = [
-    { word: 'APPLE', definition: 'a fruit' },
-    { word: 'BANANA', definition: 'yellow fruit' },
-    { word: 'CAT', definition: 'a pet' },
+    { word: "APPLE", definition: "a fruit" },
+    { word: "BANANA", definition: "yellow fruit" },
+    { word: "CAT", definition: "a pet" },
   ]
 
-  it('filters with single criterion', () => {
-    const criteria = [{ mode: FilterMode.StartsWith, value: 'A' }]
+  it("filters with single criterion", () => {
+    const criteria = [{ mode: FilterMode.StartsWith, value: "A" }]
     const result = filterWords(words, criteria)
-    expect(result.map(w => w.word)).toEqual(['APPLE'])
+    expect(result.map(w => w.word)).toEqual(["APPLE"])
   })
 
-  it('filters with multiple criteria (AND)', () => {
+  it("filters with multiple criteria (AND)", () => {
     const criteria = [
-      { mode: FilterMode.ContainsAllOf, value: 'AN' },
-      { mode: FilterMode.HasLength, value: '6' },
+      { mode: FilterMode.ContainsAllOf, value: "AN" },
+      { mode: FilterMode.HasLength, value: "6" },
     ]
     const result = filterWords(words, criteria)
-    expect(result.map(w => w.word)).toEqual(['BANANA'])
+    expect(result.map(w => w.word)).toEqual(["BANANA"])
   })
 
-  it('returns all words when no criteria', () => {
+  it("returns all words when no criteria", () => {
     const result = filterWords(words, [])
     expect(result).toHaveLength(3)
   })
@@ -447,7 +447,7 @@ Expected: FAIL
 Create `src/lib/words.ts`:
 
 ```typescript
-import { applyFilter, FilterMode } from './filters'
+import { applyFilter, FilterMode } from "./filters"
 
 export type Word = {
   word: string
@@ -471,7 +471,9 @@ export function sortWords(words: Word[]): Word[] {
 export function filterWords(words: Word[], criteria: Criterion[]): Word[] {
   if (criteria.length === 0) return words
 
-  return words.filter(w => criteria.every(c => c.value === '' || applyFilter(w.word, c.mode, c.value)))
+  return words.filter(w =>
+    criteria.every(c => c.value === "" || applyFilter(w.word, c.mode, c.value)),
+  )
 }
 ```
 

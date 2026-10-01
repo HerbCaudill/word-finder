@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
-import { FilterMode } from '@/lib/filters'
-import type { Criterion } from '@/lib/words'
-import { CriterionRow } from './CriterionRow'
+import { useEffect, useRef, useState } from "react"
+import { FilterMode } from "@/lib/filters"
+import type { Criterion } from "@/lib/words"
+import { CriterionRow } from "./CriterionRow"
 
 export function CriteriaList({ criteria, onChange }: Props) {
   const prevLengthRef = useRef(criteria.length)
@@ -10,7 +10,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
   // Re-focus when criteria length decreases (delete/reset)
   useEffect(() => {
     if (criteria.length < prevLengthRef.current) {
-      const emptyIndex = criteria.findIndex(c => c.value === '')
+      const emptyIndex = criteria.findIndex(c => c.value === "")
       if (emptyIndex >= 0) {
         setFocusState(prev => ({ index: emptyIndex, trigger: (prev?.trigger ?? 0) + 1 }))
       }
@@ -27,7 +27,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
     const hadNoValue = !criteria[index].value
     const hasValue = !!criterion.value
     if (isLast && hadNoValue && hasValue) {
-      next.push({ mode: FilterMode.Contains, value: '' })
+      next.push({ mode: FilterMode.Contains, value: "" })
     }
 
     onChange(next)
@@ -39,7 +39,7 @@ export function CriteriaList({ criteria, onChange }: Props) {
   }
 
   return (
-    <div className="p-3 space-y-2 max-h-[13.25rem] overflow-y-auto">
+    <div className="max-h-[13.25rem] space-y-2 overflow-y-auto p-3">
       {criteria.map((criterion, index) => (
         <CriterionRow
           key={index}

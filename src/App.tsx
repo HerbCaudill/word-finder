@@ -69,11 +69,11 @@ export function App() {
   const hasActiveFilters = criteria.some(c => c.value.trim() !== "")
 
   return (
-    <div className="h-dvh flex flex-col bg-background text-foreground">
-      <header className="shrink-0 bg-green-600 text-white pt-[env(safe-area-inset-top)]">
-        <div className="max-w-3xl mx-auto">
+    <div className="bg-background text-foreground flex h-dvh flex-col">
+      <header className="shrink-0 bg-green-600 pt-[env(safe-area-inset-top)] text-white">
+        <div className="mx-auto max-w-3xl">
           <CriteriaList criteria={criteria} onChange={setCriteria} />
-          <div className="px-4 py-2 text-sm text-white/70 font-semibold flex items-center justify-between">
+          <div className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/70">
             <span>{filteredWords.length.toLocaleString()} matches</span>
             <div className="flex items-center gap-1">
               {hasActiveFilters && (
@@ -81,9 +81,9 @@ export function App() {
                   variant="ghost"
                   size="sm"
                   onClick={() => setCriteria(DEFAULT_CRITERIA)}
-                  className="h-6 px-2 text-xs text-white/70 hover:text-white hover:bg-white/10 border border-white/30 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
+                  className="h-6 border border-white/30 px-2 text-xs text-white/70 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
                 >
-                  <RotateCcw className="h-3 w-3 mr-1" />
+                  <RotateCcw className="mr-1 h-3 w-3" />
                   Reset
                 </Button>
               )}
@@ -92,7 +92,7 @@ export function App() {
           </div>
         </div>
       </header>
-      <div className="max-w-3xl mx-auto w-full flex-1 min-h-0">
+      <div className="mx-auto min-h-0 w-full max-w-3xl flex-1">
         <ResultsList words={filteredWords} />
       </div>
     </div>

@@ -20,12 +20,12 @@ export function ResultsList({ words }: Props) {
     if (!container || !loader) return
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0].isIntersecting && visibleCount < words.length) {
-          setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, words.length))
+          setVisibleCount(prev => Math.min(prev + PAGE_SIZE, words.length))
         }
       },
-      { root: container, rootMargin: "0px 0px 500px 0px", threshold: 0 }
+      { root: container, rootMargin: "0px 0px 500px 0px", threshold: 0 },
     )
 
     observer.observe(loader)
@@ -37,13 +37,13 @@ export function ResultsList({ words }: Props) {
 
   return (
     <div ref={containerRef} className="h-full overflow-y-auto">
-      <div className="p-3 pb-24 flex flex-wrap gap-1">
+      <div className="flex flex-wrap gap-1 p-3 pb-24">
         {visibleWords.map((word, index) => (
           <WordChip key={`${word.word}-${index}`} word={word} />
         ))}
       </div>
       {visibleCount < words.length && (
-        <div ref={loaderRef} className="px-4 py-3 text-center text-muted-foreground text-sm">
+        <div ref={loaderRef} className="text-muted-foreground px-4 py-3 text-center text-sm">
           Loading more...
         </div>
       )}

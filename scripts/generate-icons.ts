@@ -28,15 +28,13 @@ if (!existsSync(svgPath)) {
 for (const { name, size } of sizes) {
   const output = `${outputDir}/${name}`
   console.log(`Generating ${name} (${size}x${size})...`)
-  execSync(
-    `magick -background none -density 300 ${svgPath} -resize ${size}x${size} ${output}`
-  )
+  execSync(`magick -background none -density 300 ${svgPath} -resize ${size}x${size} ${output}`)
 }
 
 // Generate favicon.ico (multi-size)
 console.log("Generating favicon.ico...")
 execSync(
-  `magick -background none -density 300 ${svgPath} -define icon:auto-resize=48,32,16 ${outputDir}/favicon.ico`
+  `magick -background none -density 300 ${svgPath} -define icon:auto-resize=48,32,16 ${outputDir}/favicon.ico`,
 )
 
 console.log("Done! Icons generated in public/")

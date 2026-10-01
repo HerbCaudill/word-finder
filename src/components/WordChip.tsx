@@ -5,11 +5,11 @@ export function WordChip({ word }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="font-mono text-sm px-2 py-1 rounded hover:bg-muted active:bg-muted/80">
+        <button className="hover:bg-muted active:bg-muted/80 rounded px-2 py-1 font-mono text-sm">
           {word.word}
         </button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-xs text-sm p-3">
+      <PopoverContent className="max-w-xs p-3 text-sm">
         {word.crossRef ? (
           <p className="text-muted-foreground italic">
             See {word.crossRef.word} ({word.crossRef.partOfSpeech})
@@ -20,20 +20,18 @@ export function WordChip({ word }: Props) {
               <li key={i}>
                 <div>
                   {def.partOfSpeech && (
-                    <span className="text-muted-foreground italic mr-1">({def.partOfSpeech})</span>
+                    <span className="text-muted-foreground mr-1 italic">({def.partOfSpeech})</span>
                   )}
-                  {def.note && (
-                    <span className="text-muted-foreground mr-1">[{def.note}]</span>
-                  )}
+                  {def.note && <span className="text-muted-foreground mr-1">[{def.note}]</span>}
                   {def.text}
                 </div>
                 {def.forms && def.forms.length > 0 && (
-                  <div className="text-muted-foreground text-xs mt-0.5">
+                  <div className="text-muted-foreground mt-0.5 text-xs">
                     Forms: {def.forms.join(", ")}
                   </div>
                 )}
                 {def.alsoSpelled && def.alsoSpelled.length > 0 && (
-                  <div className="text-muted-foreground text-xs mt-0.5">
+                  <div className="text-muted-foreground mt-0.5 text-xs">
                     Also: {def.alsoSpelled.join(", ")}
                   </div>
                 )}

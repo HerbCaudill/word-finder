@@ -103,7 +103,7 @@ test.describe("Word Finder", () => {
     await expect(page.getByPlaceholder("Enter value...")).toHaveCount(2)
 
     // Get all trash buttons (remove buttons)
-    const removeButtons = page.locator('button:has(svg.lucide-trash-2)')
+    const removeButtons = page.locator("button:has(svg.lucide-trash-2)")
 
     // Click the first remove button
     await removeButtons.first().click()
@@ -169,7 +169,7 @@ test.describe("Word Finder", () => {
 
   test("cannot delete the last criterion", async ({ page }) => {
     // Initially there's one criterion and no trash button should be visible
-    const trashButtons = page.locator('button:has(svg.lucide-trash-2)')
+    const trashButtons = page.locator("button:has(svg.lucide-trash-2)")
     await expect(trashButtons).toHaveCount(0)
 
     // Type to trigger auto-add of second criterion

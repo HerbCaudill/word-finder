@@ -31,17 +31,17 @@ A single-page React app for finding words from the Collins Scrabble Dictionary. 
 
 ## Search Modes
 
-| Mode             | Logic                                       |
-| ---------------- | ------------------------------------------- |
-| Contains         | `word.includes(input)`                      |
-| Starts with      | `word.startsWith(input)`                    |
-| Ends with        | `word.endsWith(input)`                      |
-| Does not contain | `!word.includes(input)`                     |
-| Contains any of  | at least one letter from input is in word   |
-| Contains all of  | every letter from input is in word          |
-| Contains none of | no letter from input is in word             |
-| Matches regex    | `new RegExp(input).test(word)`              |
-| Has length       | `word.length === parseInt(input)`           |
+| Mode             | Logic                                     |
+| ---------------- | ----------------------------------------- |
+| Contains         | `word.includes(input)`                    |
+| Starts with      | `word.startsWith(input)`                  |
+| Ends with        | `word.endsWith(input)`                    |
+| Does not contain | `!word.includes(input)`                   |
+| Contains any of  | at least one letter from input is in word |
+| Contains all of  | every letter from input is in word        |
+| Contains none of | no letter from input is in word           |
+| Matches regex    | `new RegExp(input).test(word)`            |
+| Has length       | `word.length === parseInt(input)`         |
 
 Multiple criteria combine with AND logic.
 

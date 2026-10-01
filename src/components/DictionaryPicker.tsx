@@ -14,7 +14,7 @@ export function DictionaryPicker({ value, onChange }: Props) {
         <Button
           variant="ghost"
           size="sm"
-          className="h-6 w-6 p-0 text-white/70 hover:text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
+          className="h-6 w-6 p-0 text-white/70 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0"
         >
           <Settings className="h-3.5 w-3.5" />
         </Button>
@@ -27,11 +27,13 @@ export function DictionaryPicker({ value, onChange }: Props) {
               onChange(key)
               setOpen(false)
             }}
-            className={`w-full text-left text-sm px-3 py-1.5 rounded hover:bg-muted flex items-center gap-2 ${
+            className={`hover:bg-muted flex w-full items-center gap-2 rounded px-3 py-1.5 text-left text-sm ${
               value === key ? "font-semibold" : ""
             }`}
           >
-            <Check className={`h-3.5 w-3.5 shrink-0 ${value === key ? "opacity-100" : "opacity-0"}`} />
+            <Check
+              className={`h-3.5 w-3.5 shrink-0 ${value === key ? "opacity-100" : "opacity-0"}`}
+            />
             {label}
           </button>
         ))}

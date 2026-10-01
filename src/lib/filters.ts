@@ -47,18 +47,16 @@ export const filters = {
     label: "Contains only",
     fn: (word: string, value: string): boolean => {
       const allowed = new Set(value)
-      return [...word].every((char) => allowed.has(char))
+      return [...word].every(char => allowed.has(char))
     },
   },
   containsAllOf: {
     label: "Contains all of",
-    fn: (word: string, value: string): boolean =>
-      [...value].every((char) => word.includes(char)),
+    fn: (word: string, value: string): boolean => [...value].every(char => word.includes(char)),
   },
   containsNoneOf: {
     label: "Contains none of",
-    fn: (word: string, value: string): boolean =>
-      ![...value].some((char) => word.includes(char)),
+    fn: (word: string, value: string): boolean => ![...value].some(char => word.includes(char)),
   },
   permutes: {
     label: "Permutes",
@@ -76,8 +74,7 @@ export const filters = {
   },
   hasLength: {
     label: "Has length",
-    fn: (word: string, value: string): boolean =>
-      word.length === parseInt(value, 10),
+    fn: (word: string, value: string): boolean => word.length === parseInt(value, 10),
     skipNormalization: true,
   },
 } as const satisfies Record<
@@ -100,14 +97,10 @@ export const FilterMode: { [K in FilterMode as Capitalize<K>]: K } = {
 }
 
 export const FILTER_LABELS: Record<FilterMode, string> = Object.fromEntries(
-  Object.entries(filters).map(([key, { label }]) => [key, label])
+  Object.entries(filters).map(([key, { label }]) => [key, label]),
 ) as Record<FilterMode, string>
 
-export function applyFilter(
-  word: string,
-  mode: FilterMode,
-  value: string
-): boolean {
+export function applyFilter(word: string, mode: FilterMode, value: string): boolean {
   const filter = filters[mode]
   if ("skipNormalization" in filter && filter.skipNormalization) {
     return filter.fn(word, value)
