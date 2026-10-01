@@ -102,8 +102,9 @@ export const FILTER_LABELS: Record<FilterMode, string> = Object.fromEntries(
 
 export function applyFilter(word: string, mode: FilterMode, value: string): boolean {
   const filter = filters[mode]
+  const stripped = value.replace(/\s/g, "")
   if ("skipNormalization" in filter && filter.skipNormalization) {
-    return filter.fn(word, value)
+    return filter.fn(word, stripped)
   }
-  return filter.fn(word.toUpperCase(), value.toUpperCase())
+  return filter.fn(word.toUpperCase(), stripped.toUpperCase())
 }

@@ -69,8 +69,10 @@ export function App() {
   const hasActiveFilters = criteria.some(c => c.value.trim() !== "")
 
   return (
-    <div className="bg-background text-foreground flex h-dvh flex-col">
-      <header className="shrink-0 bg-green-600 pt-[env(safe-area-inset-top)] text-white">
+    <div className="bg-background text-foreground fixed inset-0 flex flex-col">
+      {/* Extra padding above the safe-area inset: iOS's translucent status bar
+          blur bleeds below the inset, washing out the first criterion row. */}
+      <header className="shrink-0 bg-green-600 pt-[calc(env(safe-area-inset-top,0px)+0.75rem)] text-white">
         <div className="mx-auto max-w-3xl">
           <CriteriaList criteria={criteria} onChange={setCriteria} />
           <div className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/70">
