@@ -69,9 +69,9 @@ export function App() {
   const hasActiveFilters = criteria.some(c => c.value.trim() !== "")
 
   return (
-    <div className="bg-background text-foreground fixed inset-0 flex flex-col">
+    <div className="bg-background text-foreground flex h-full min-h-0 flex-col">
       {/* WebKit recognizes an opaque sticky top bar when rendering the iOS status area. */}
-      <header className="sticky top-0 z-30 w-full shrink-0 bg-green-600 text-white">
+      <header className="sticky top-0 z-30 w-full shrink-0 bg-green-600 pt-[env(safe-area-inset-top,0px)] text-white">
         <div className="mx-auto max-w-3xl">
           <CriteriaList criteria={criteria} onChange={setCriteria} />
           <div className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/70">

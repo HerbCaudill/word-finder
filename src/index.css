@@ -128,15 +128,16 @@
     @apply border-border outline-ring/50;
   }
   html,
-  body,
-  #root {
+  body {
     height: 100%;
+    /* Only the results scroll; a fixed viewport-sized wrapper clips the bottom on iOS. */
+    overflow: hidden;
+    overscroll-behavior: none;
   }
   body {
     @apply bg-background text-foreground;
-    /* Lock the document so the page itself can't scroll or rubber-band,
-       which would otherwise drag the fixed header along with it on mobile. */
-    overflow: hidden;
-    overscroll-behavior: none;
+  }
+  #root {
+    height: 100dvh;
   }
 }
