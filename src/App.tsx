@@ -70,7 +70,8 @@ export function App() {
 
   return (
     <div className="bg-background text-foreground fixed inset-0 flex flex-col">
-      <header className="shrink-0 bg-green-600 pt-[env(safe-area-inset-top,0px)] text-white">
+      {/* WebKit recognizes an opaque sticky top bar when rendering the iOS status area. */}
+      <header className="sticky top-0 z-30 w-full shrink-0 bg-green-600 text-white">
         <div className="mx-auto max-w-3xl">
           <CriteriaList criteria={criteria} onChange={setCriteria} />
           <div className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/70">
