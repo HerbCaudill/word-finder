@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
-    "dev": "vite",
+    "dev": "localhost-dev pnpm dev:app",
     "format": "oxfmt",
     "icons": "tsx scripts/generate-icons.ts",
     "preview": "vite preview",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "dev:app": "vite",
+    "dev:url": "localhost-dev url"
   },
   "dependencies": {
     "@fontsource/ibm-plex-mono": "^5.2.7",
