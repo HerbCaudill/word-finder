@@ -71,10 +71,11 @@ export function App() {
   return (
     <div className="bg-background text-foreground flex h-full min-h-0 flex-col">
       {/* WebKit recognizes an opaque sticky top bar when rendering the iOS status area. */}
-      <header className="sticky top-0 z-30 w-full shrink-0 bg-green-600 pt-[env(safe-area-inset-top,0px)] text-white">
-        <div className="mx-auto max-w-3xl">
+      {/* On phones the criteria may fill up to two thirds of the screen; wider screens cap them at five rows. */}
+      <header className="sticky top-0 z-30 flex max-h-[calc(100dvh*2/3)] w-full shrink-0 flex-col bg-green-600 pt-[env(safe-area-inset-top,0px)] text-white sm:max-h-none">
+        <div className="mx-auto flex min-h-0 w-full max-w-3xl flex-col">
           <CriteriaList criteria={criteria} onChange={setCriteria} />
-          <div className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-white/70">
+          <div className="flex shrink-0 items-center justify-between px-4 py-2 text-sm font-semibold text-white/70">
             <span>{filteredWords.length.toLocaleString()} matches</span>
             <div className="flex items-center gap-1">
               {hasActiveFilters && (

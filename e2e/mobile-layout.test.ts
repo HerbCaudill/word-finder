@@ -21,3 +21,18 @@ test("keeps the search controls below the iPhone status area", async ({ page, br
   })
   await expect.poll(async () => (await input.boundingBox())!.y).toBe(12)
 })
+
+test("lets the header grow to about two thirds of a phone screen", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  const criteria = Array.from({ length: 12 }, () => ({ mode: "contains", value: "A" }))
+  await page.addInitScript(value => {
+    localStorage.setItem("word-finder-criteria", value)
+  }, JSON.stringify(criteria))
+  await page.goto("/")
+
+  const header = page.locator("header")
+  await expect(page.getByPlaceholder("Enter value...").first()).toBeVisible()
+  const { height } = (await header.boundingBox())!
+  expect(height).toBeGreaterThan(844 * 0.6)
+  expect(height).toBeLessThanOrEqual(Math.ceil(844 * (2 / 3)))
+})
