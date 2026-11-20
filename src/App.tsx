@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { CriteriaList } from "@/components/CriteriaList"
 import { DictionaryPicker } from "@/components/DictionaryPicker"
 import { ResultsList } from "@/components/ResultsList"
+import { UpdateNotice } from "@/components/UpdateNotice"
 import { Button } from "@/components/ui/button"
 import { RotateCcw } from "lucide-react"
 import type { Criterion } from "@/lib/words"
@@ -97,6 +98,7 @@ export function App() {
       <div className="mx-auto min-h-0 w-full max-w-3xl flex-1">
         <ResultsList words={filteredWords} />
       </div>
+      <UpdateNotice />
     </div>
   )
 }

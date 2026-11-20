@@ -2,6 +2,8 @@ import { defineConfig, devices } from "@playwright/test"
 
 export default defineConfig({
   testDir: "./e2e",
+  // Production service-worker updates run separately with playwright.pwa.config.ts.
+  testIgnore: "pwa/**",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
