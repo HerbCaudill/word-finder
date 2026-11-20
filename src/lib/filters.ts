@@ -9,6 +9,7 @@ export const filters = {
       }
     },
     skipNormalization: true,
+    pattern: true,
   },
   startsWith: {
     label: "Starts with",
@@ -20,6 +21,7 @@ export const filters = {
       }
     },
     skipNormalization: true,
+    pattern: true,
   },
   endsWith: {
     label: "Ends with",
@@ -31,6 +33,7 @@ export const filters = {
       }
     },
     skipNormalization: true,
+    pattern: true,
   },
   doesNotContain: {
     label: "Does not contain",
@@ -42,6 +45,7 @@ export const filters = {
       }
     },
     skipNormalization: true,
+    pattern: true,
   },
   containsOnly: {
     label: "Contains only",
@@ -79,7 +83,13 @@ export const filters = {
   },
 } as const satisfies Record<
   string,
-  { label: string; fn: (word: string, value: string) => boolean; skipNormalization?: boolean }
+  {
+    label: string
+    fn: (word: string, value: string) => boolean
+    skipNormalization?: boolean
+    /** The value is a regex, so each span of whitespace separates alternatives. */
+    pattern?: boolean
+  }
 >
 
 export type FilterMode = keyof typeof filters
@@ -102,9 +112,10 @@ export const FILTER_LABELS: Record<FilterMode, string> = Object.fromEntries(
 
 export function applyFilter(word: string, mode: FilterMode, value: string): boolean {
   const filter = filters[mode]
-  const stripped = value.replace(/\s/g, "")
+  const normalized =
+    "pattern" in filter ? value.trim().replace(/\s+/g, "|") : value.replace(/\s/g, "")
   if ("skipNormalization" in filter && filter.skipNormalization) {
-    return filter.fn(word, stripped)
+    return filter.fn(word, normalized)
   }
-  return filter.fn(word.toUpperCase(), stripped.toUpperCase())
+  return filter.fn(word.toUpperCase(), normalized.toUpperCase())
 }

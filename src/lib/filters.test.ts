@@ -91,4 +91,22 @@ describe("applyFilter", () => {
   it("handles case insensitivity", () => {
     expect(applyFilter("HELLO", FilterMode.Contains, "ell")).toBe(true)
   })
+
+  it("pattern modes treat each span of whitespace as alternation", () => {
+    expect(applyFilter("BBQ", FilterMode.Contains, "AA BB")).toBe(true)
+    expect(applyFilter("CAT", FilterMode.Contains, "AA \t BB")).toBe(false)
+    expect(applyFilter("HELLO", FilterMode.StartsWith, "XY  HE")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.EndsWith, "LO XY")).toBe(true)
+    expect(applyFilter("HELLO", FilterMode.DoesNotContain, "XY ELL")).toBe(false)
+  })
+
+  it("pattern modes ignore leading and trailing whitespace", () => {
+    expect(applyFilter("CAT", FilterMode.Contains, " AA ")).toBe(false)
+    expect(applyFilter("AAH", FilterMode.Contains, " AA ")).toBe(true)
+  })
+
+  it("letter modes ignore whitespace", () => {
+    expect(applyFilter("CAB", FilterMode.ContainsAllOf, "A B")).toBe(true)
+    expect(applyFilter("CAB", FilterMode.ContainsNoneOf, "X Y")).toBe(true)
+  })
 })
